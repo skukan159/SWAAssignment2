@@ -49,7 +49,7 @@ test('Date Interval tests', () => {
 
 test('WeatherData tests', () => {
     let date = new Date();
-    let eventObj = new Event(date,"Horsens")
+    let eventObj = new Event(date,"Horsens");
     let weatherData = new WeatherData(10,"Temperature","Celsius",eventObj);
 
     expect(weatherData.value()).toBe(10);
@@ -61,7 +61,8 @@ test('WeatherData tests', () => {
 
 test('Temperature tests', () => {
     let date = new Date();
-    let temperatureData = new Temperature(10,"Celsius",date,"Horsens");
+    let eventObj = new Event(date,"Horsens")
+    let temperatureData = new Temperature(10,"Celsius",eventObj);
 
     expect(temperatureData.value()).toBe(10);
     expect(temperatureData.time()).toBe(date);
@@ -80,7 +81,8 @@ test('Temperature tests', () => {
 
 test('Precipitation tests', () => {
     let date = new Date();
-    let precipitation = new Precipitation("samplePrecType",10,"mm",date,"Horsens");
+    let eventObj = new Event(date,"Horsens")
+    let precipitation = new Precipitation("samplePrecType",10,"mm",eventObj);
 
     expect(precipitation.value()).toBe(10);
     expect(precipitation.time()).toBe(date);
@@ -100,7 +102,8 @@ test('Precipitation tests', () => {
 
 test('Wind tests', () => {
     let date = new Date();
-    let wind = new Wind("NE",10,"MS",date,"Horsens");
+    let eventObj = new Event(date,"Horsens")
+    let wind = new Wind("NE",10,"MS",eventObj);
 
     expect(wind.value()).toBe(10);
     expect(wind.time()).toBe(date);
@@ -119,7 +122,8 @@ test('Wind tests', () => {
 
 test('CloudCoverage tests', () => {
     let date = new Date();
-    let cloudCoverage = new CloudCoverage(10,"okta",date,"Horsens");
+    let eventObj = new Event(date,"Horsens")
+    let cloudCoverage = new CloudCoverage(10,"okta",eventObj);
 
     expect(cloudCoverage.value()).toBe(10);
     expect(cloudCoverage.time()).toBe(date);
@@ -132,10 +136,12 @@ test('CloudCoverage tests', () => {
 test('WeatherPrediction tests', () => {
     let date = new Date();
 
-    let  weatherData1 = new WeatherData(10,"Temperature","Celsius",date,"Horsens");
-    let  weatherData2 = new WeatherData(10,"Temperature","Celsius",date,"Vejle");
-    let  weatherData3 = new WeatherData(4,"Temperature","Celsius",date,"Skanderborg");
-    let  weatherData4 = new WeatherData(2,"Temperature","Celsius",date,"Horsens");
+    let dataTypeObj = new DataType("Temperature","Celsius")
+
+    let  weatherData1 = new WeatherData(10,dataTypeObj, date, "Horsens");
+    let  weatherData2 = new WeatherData(10,dataTypeObj,date, "Vejle");
+    let  weatherData3 = new WeatherData(4,dataTypeObj,date,"Skanderborg");
+    let  weatherData4 = new WeatherData(2,dataTypeObj,date,"Horsens");
 
     let weatherPrediction = new WeatherPrediction(5,15,"Temperature","Celsius",date,"Horsens");
     let weatherPrediction2 = new WeatherPrediction(8,15,"Temperature","Celsius",date,"Vejle");
@@ -226,6 +232,8 @@ test('WeatherHistory test', () => {
     let toDate2 = new Date();
     toDate.setFullYear(2001, 22, 12)
     let dateInterval2 = new DateInterval(fromDate2, toDate2);
+
+    let eventObj = new Event(date,"Horsens")
 
 
     let date = new Date();

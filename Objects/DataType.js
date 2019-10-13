@@ -1,13 +1,13 @@
 class DataType {
 
-    constructor(timeVal,unitVal){
+    constructor(typeVal,unitVal){
 
-        this.timeVal = timeVal;
+        this.typeVal = typeVal;
         this.unitVal = unitVal;
 
     }
 
-    time() {return this.timeVal}
+    type() {return this.typeVal}
     unit() {return this.unitVal}
 
 }

@@ -17,4 +17,4 @@ class DateInterval {
     }
 }
 
-module.exports = { DateInterval }
+module.exports = { DateInterval }   
