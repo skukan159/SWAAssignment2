@@ -2,7 +2,7 @@ const { WeatherPrediction } = require("./WeatherPrediction");
 
 class WindPrediction extends WeatherPrediction {
 
-    constructor(directionsVal, fromVal, fromVal, toVal, timeVal, placeVal, dataTypeObj){
+    constructor(directionsVal, fromVal, toVal, timeVal, placeVal, dataTypeObj){
         let newDataTypeObj = new DataType("Wind", dataTypeObj.unit());
         super(fromVal, toVal, timeVal, placeVal, newDataTypeObj);
         this.directionsVal = directionsVal;

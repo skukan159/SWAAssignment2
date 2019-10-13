@@ -212,7 +212,7 @@ test('WindPrediction test', () => {
 
     let wind1 = new Wind("NE",7,"MS", eventObj);
 
-    let wind = new WindPrediction(5,10,"NE","MS",date,"Horsens", dataObj);
+    let wind = new WindPrediction("NE", 5,10,"MS",date,"Horsens", dataObj);
 
     expect(wind.matches(wind1)).toBe(true);
     expect(wind.from()).toBe(5);
@@ -253,11 +253,12 @@ test('WeatherHistory test', () => {
     let dateInterval2 = new DateInterval(fromDate2, toDate2);
 
     let eventObj = new Event(date,"Horsens")
+    let eventObj2 = new Event(date,"Vejle")
 
 
     let date = new Date();
-    let data1 = new Temperature(10, "Celsius", date, "Horsens");
-    let data2 = new Temperature(12, "Celsius", date, "Vejle");
+    let data1 = new Temperature(10, "Celsius", eventObj);
+    let data2 = new Temperature(12, "Celsius", eventObj2);
     let dataArray = [data1, data2];
     let weatherHistory1 = new WeatherHistory(dataArray, "Horsens", "Temperature", dateInterval1);
 
@@ -292,7 +293,8 @@ test('WeatherHistory test', () => {
     expect(data1.value()).toBe(10);
     expect(data1.unit()).toBe("Celsius");
 
-    let weatherData3 = new Temperature(15, "Celsius", fromDate, "friv");
+
+    let weatherData3 = new Temperature(15, "Celsius", eventObj2);
     weatherHistory1.add(weatherData3);
 
     weatherHistory1.setCurrentPlace("friv");
@@ -321,8 +323,10 @@ test('WeatherForecast test', () => {
 
 
     let date = new Date();
-    let data1 = new Temperature(10, "Celsius", date, "Horsens");
-    let data2 = new Temperature(12, "Celsius", date, "Vejle");
+    let eventObj = new Event(date,"Horsens")
+    let eventObj2 = new Event(date,"Vejle")
+    let data1 = new Temperature(10, "Celsius", eventObj);
+    let data2 = new Temperature(12, "Celsius", eventObj2);
     let dataArray = [data1, data2];
     let weatherForecast1 = new WeatherForecast(dataArray, "Horsens", "Temperature", dateInterval1);
 
@@ -357,7 +361,7 @@ test('WeatherForecast test', () => {
     expect(data1.value()).toBe(10);
     expect(data1.unit()).toBe("Celsius");
 
-    let weatherData3 = new Temperature(15, "Celsius", fromDate, "friv");
+    let weatherData3 = new Temperature(15, "Celsius", eventObj2);
     weatherForecast1.add(weatherData3);
 
     weatherForecast1.setCurrentPlace("friv");
