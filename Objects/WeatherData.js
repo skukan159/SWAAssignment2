@@ -1,14 +1,16 @@
 const { DataType } = require("./DataType");
 const { Event } = require("./Event");
 
-function WeatherData(valueVal, typeVal, unitVal, timeVal, placeVal) {
-    Event.call(this, timeVal, placeVal)
-    DataType.call(this, typeVal, unitVal)
-    this.valueVal = valueVal;
+class WeatherData extends Event {
+    constructor(valueVal, typeVal, unitVal, dataTypeObj){
+        this.valueVal = valueVal;
+        this.typeVal = typeVal;
+        this.unitVal = unitVal;
+        this.dataTypeObj = dataTypeObj;
+    }
+
+    value() { return this.valueVal }
+    
 }
-
-WeatherData.prototype.value = function value() { return this.valueVal }
-Object.assign(WeatherData.prototype, DataType.prototype, Event.prototype)
-
 
 module.exports = { WeatherData }

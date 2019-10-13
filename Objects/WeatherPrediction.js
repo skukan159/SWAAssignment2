@@ -1,7 +1,13 @@
 const { DataType } = require("./DataType");
 const { Event } = require("./Event");
 
-function WeatherPrediction(fromVal, toVal, typeVal, unitVal, timeVal, placeVal) {
+class WeatherPrediction extends Event {
+    constructor(fromVal, toVal, typeVal, unitVal, timeVal, placeVal){
+
+    }
+}
+
+function WeatherPrediction() {
         Event.call(this, timeVal, placeVal)
         DataType.call(this, typeVal, unitVal)
         this.fromVal = fromVal;
