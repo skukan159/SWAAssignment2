@@ -1,10 +1,10 @@
 const { WeatherPrediction } = require("./WeatherPrediction");
+const { DataType } = require("./DataType");
 
 class TemperaturePrediction extends WeatherPrediction {
-
-    constructor(fromVal, toVal, unitVal ,timeVal, placeVal){
-        let typeVal = "Temperature"
-        super(fromVal, toVal, typeVal, unitVal ,timeVal, placeVal);
+    constructor(fromVal, toVal, timeVal, placeVal, dataTypeObj){
+        let newDataTypeObj = new DataType("Temperature", dataTypeObj.unit());
+        super(fromVal, toVal, timeVal, placeVal, newDataTypeObj);
     }
 
     convertToF() { 
@@ -13,7 +13,6 @@ class TemperaturePrediction extends WeatherPrediction {
             this.toVal = (this.toVal * 9/5) + 32; 
             this.unitVal = "Fahrenheit" 
         }
-
     }
 
     convertToC() { 
@@ -23,7 +22,6 @@ class TemperaturePrediction extends WeatherPrediction {
             this.toVal = (this.toVal - 32) * 5 / 9;
             this.unitVal = "Celsius"
         }
- 
     }
 }
 

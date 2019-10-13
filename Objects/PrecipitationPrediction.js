@@ -1,10 +1,11 @@
 const { WeatherPrediction } = require("./WeatherPrediction");
 
+
 class PrecipitationPrediction extends WeatherPrediction {
 
-    constructor(typesVal,fromVal, toVal, unitVal ,timeVal, placeVal){
-        let typeVal = "Precipitation"
-        super(fromVal, toVal, typeVal, unitVal ,timeVal, placeVal);
+    constructor(typesVal,fromVal, toVal, timeVal, placeVal, dataTypeObj){
+        let newDataTypeObj = new DataType("Precipitation", dataTypeObj.unit());
+        super(fromVal, toVal, timeVal, placeVal, newDataTypeObj);
         this.typesVal = typesVal;
     }
 
