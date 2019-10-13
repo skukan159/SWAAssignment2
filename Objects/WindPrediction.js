@@ -8,18 +8,18 @@ class WindPrediction extends WeatherPrediction {
         this.directionsVal = directionsVal;
     }
 
-    directions(){
+    directions() {
         return this.directionsVal;
     }
 
-    convertToMPH(){ 
-        if(this.unitVal.toLowerCase() != "mph"){
+    convertToMPH() { 
+        if (this.unitVal.toLowerCase() != "mph"){
             this.fromVal = this.fromVal * 2.237; 
             this.toVal = this.toVal * 2.237; 
             this.unitVal = "MPH" 
         } 
     }
-    convertToMS(){ 
+    convertToMS() { 
         if(this.unitVal.toLowerCase() != "ms")
         {
             this.fromVal = this.fromVal / 2.237; 

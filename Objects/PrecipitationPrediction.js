@@ -9,21 +9,20 @@ class PrecipitationPrediction extends WeatherPrediction {
     }
 
 
-    convertToMM(){ 
-        if(this.unitVal.toLowerCase() != "mm"){
+    convertToMM() { 
+        if (this.unitVal.toLowerCase() != "mm"){
             this.fromVal = this.fromVal * 25.4; 
             this.toVal = this.toVal * 25.4; 
             this.unitVal = "MM" 
         } 
     }
-    convertToInches(){ 
+    convertToInches() { 
         if(this.unitVal.toLowerCase() != "inches")
         {
             this.fromVal = this.fromVal / 25.4; 
             this.toVal = this.toVal / 25.4;
             this.unitVal = "Inches"
         }
- 
     }
 }
 
