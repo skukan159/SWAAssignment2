@@ -8,20 +8,28 @@ class TemperaturePrediction extends WeatherPrediction {
     }
 
     convertToF() { 
-        if (this.unitVal.toLowerCase() != "fahrenheit"){
+        if (this.type().toLowerCase() != "fahrenheit"){
             this.fromVal = (this.fromVal * 9/5) + 32; 
             this.toVal = (this.toVal * 9/5) + 32; 
-            this.unitVal = "Fahrenheit" 
+            this.dataTypeObj = new DataType(this.dataTypeObj.type(), "Fahrenheit"); 
         }
     }
 
     convertToC() { 
-        if (this.unitVal.toLowerCase() != "celsius")
+        if (this.unit().toLowerCase() != "celsius")
         {
             this.fromVal = (this.fromVal - 32) * 5 / 9; 
             this.toVal = (this.toVal - 32) * 5 / 9;
-            this.unitVal = "Celsius"
+            this.dataTypeObj = new DataType(this.dataTypeObj.type(), "Celsius");
         }
+    }
+
+    unit(){
+         return this.dataTypeObj.unit()
+    }
+
+    type(){
+        return this.dataTypeObj.unit()
     }
 }
 

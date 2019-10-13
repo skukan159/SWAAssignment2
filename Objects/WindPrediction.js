@@ -1,4 +1,5 @@
 const { WeatherPrediction } = require("./WeatherPrediction");
+const { DataType } = require("./DataType");
 
 class WindPrediction extends WeatherPrediction {
 

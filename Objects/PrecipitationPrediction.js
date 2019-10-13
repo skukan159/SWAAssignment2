@@ -1,5 +1,5 @@
 const { WeatherPrediction } = require("./WeatherPrediction");
-
+const { DataType } = require("./DataType");
 
 class PrecipitationPrediction extends WeatherPrediction {
 
@@ -11,18 +11,18 @@ class PrecipitationPrediction extends WeatherPrediction {
 
 
     convertToMM() { 
-        if (this.unitVal.toLowerCase() != "mm"){
+        if (this.unit().toLowerCase() != "mm"){
             this.fromVal = this.fromVal * 25.4; 
             this.toVal = this.toVal * 25.4; 
-            this.unitVal = "MM" 
+            this.dataTypeObj = new DataType(this.dataTypeObj.type(),"MM") 
         } 
     }
     convertToInches() { 
-        if (this.unitVal.toLowerCase() != "inches")
+        if (this.unit().toLowerCase() != "inches")
         {
             this.fromVal = this.fromVal / 25.4; 
             this.toVal = this.toVal / 25.4;
-            this.unitVal = "Inches"
+            this.dataTypeObj = new DataType(this.dataTypeObj.type(),"Inches")
         }
     }
 }
