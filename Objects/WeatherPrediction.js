@@ -2,7 +2,7 @@ const { DataType } = require("./DataType");
 const { Event } = require("./Event");
 
 class WeatherPrediction extends Event {
-    constructor(fromVal, toVal, typeVal, unitVal, timeVal, placeVal){
+    constructor(fromVal, toVal, timeVal, placeVal, dataTypeObj){
 
     }
 }

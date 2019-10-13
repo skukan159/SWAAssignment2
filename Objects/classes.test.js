@@ -49,7 +49,8 @@ test('Date Interval tests', () => {
 
 test('WeatherData tests', () => {
     let date = new Date();
-    let weatherData = new WeatherData(10,"Temperature","Celsius",date,"Horsens");
+    let eventObj = new Event(date,"Horsens")
+    let weatherData = new WeatherData(10,"Temperature","Celsius",eventObj);
 
     expect(weatherData.value()).toBe(10);
     expect(weatherData.time()).toBe(date);
