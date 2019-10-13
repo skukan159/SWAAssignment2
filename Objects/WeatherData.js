@@ -10,6 +10,8 @@ class WeatherData extends DataType {
     }
 
     value() { return this.valueVal }
+    time(){ return this.eventObj.time }
+    place() { return this.eventObj.place }
     
 }
 
