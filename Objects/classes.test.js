@@ -49,7 +49,7 @@ test('Date Interval tests', () => {
 
 test('WeatherData tests', () => {
     let date = new Date();
-    let eventObj = new Event(date,"Horsens");
+    let eventObj = new Event(date,"Horsens")
     let weatherData = new WeatherData(10,"Temperature","Celsius",eventObj);
 
     expect(weatherData.value()).toBe(10);
@@ -136,15 +136,19 @@ test('CloudCoverage tests', () => {
 test('WeatherPrediction tests', () => {
     let date = new Date();
 
-    let dataTypeObj = new DataType("Temperature","Celsius")
+    let eventObj = new Event(date,"Horsens")
+    let eventObj2 = new Event(date,"Vejle")
+    let eventObj3 = new Event(date,"Skanderborg")
 
-    let  weatherData1 = new WeatherData(10,dataTypeObj, date, "Horsens");
-    let  weatherData2 = new WeatherData(10,dataTypeObj,date, "Vejle");
-    let  weatherData3 = new WeatherData(4,dataTypeObj,date,"Skanderborg");
-    let  weatherData4 = new WeatherData(2,dataTypeObj,date,"Horsens");
+    let dataObj = new DataType("Temperature","Celsius")
 
-    let weatherPrediction = new WeatherPrediction(5,15,"Temperature","Celsius",date,"Horsens");
-    let weatherPrediction2 = new WeatherPrediction(8,15,"Temperature","Celsius",date,"Vejle");
+    let  weatherData1 = new WeatherData(10,"Temperature", "Celsius", eventObj);
+    let  weatherData2 = new WeatherData(10,"Temperature", "Celsius", eventObj2);
+    let  weatherData3 = new WeatherData(4,"Temperature", "Celsius", eventObj3);
+    let  weatherData4 = new WeatherData(2,"Temperature", "Celsius", eventObj);
+
+    let weatherPrediction = new WeatherPrediction(5,15,date,"Horsens", dataObj);
+    let weatherPrediction2 = new WeatherPrediction(8,15,date,"Horsens", dataObj);
 
     expect(weatherPrediction.matches(weatherData4)).toBe(false);
     expect(weatherPrediction2.matches(weatherData1)).toBe(true);
@@ -158,7 +162,10 @@ test('WeatherPrediction tests', () => {
 
 test('Temperature prediction test', () => {
     let date = new Date();
-    let temperaturePredictionData = new TemperaturePrediction(10,15,"Fahrenheit",date,"Horsens");
+
+    let dataObj = new DataType("Temperature","Fahrenheit")
+
+    let temperaturePredictionData = new TemperaturePrediction(10,15,date,"Horsens", dataObj);
 
         temperaturePredictionData.convertToC();
         expect(temperaturePredictionData.from()).toBe((10-32) * 5 /9);
@@ -168,9 +175,14 @@ test('Temperature prediction test', () => {
 
 test('PrecipitationPrediction test', () => {
     let date = new Date();
-    let precipitation1 = new Precipitation("samplePrecType", 7, "mm", date, "Horsens");
+
+    let eventObj = new Event(date,"Horsens")
+
+    let dataObj = new DataType("Precipitation","mm")
+
+    let precipitation1 = new Precipitation("samplePrecType", 7, "mm", eventObj);
     let precipitationTypes = ["type1","type2"]
-    let precipitationPrediction = new PrecipitationPrediction(precipitationTypes,5,10,"mm",date,"Horsens");
+    let precipitationPrediction = new PrecipitationPrediction(precipitationTypes,5,10,"Horsens", dataObj);
 
     expect(precipitationPrediction.matches(precipitation1)).toBe(true)
 
@@ -194,9 +206,13 @@ test('PrecipitationPrediction test', () => {
 test('WindPrediction test', () => {
     let date = new Date();
 
-    let wind1 = new Wind("NE",7,"MS",date,"Horsens");
+    let eventObj = new Event(date,"Horsens")
 
-    let wind = new WindPrediction(5,10,"NE","MS",date,"Horsens");
+    let dataObj = new DataType("Precipitation","mm")
+
+    let wind1 = new Wind("NE",7,"MS", eventObj);
+
+    let wind = new WindPrediction(5,10,"NE","MS",date,"Horsens", dataObj);
 
     expect(wind.matches(wind1)).toBe(true);
     expect(wind.from()).toBe(5);
@@ -209,7 +225,10 @@ test('WindPrediction test', () => {
 
 test('CloudCoveragePrediction test', () => {
     let date = new Date();
-    let cloudCoverage = new CloudCoveragePrediction(10,20,"okta",date,"Horsens");
+
+    let dataObj = new DataType("Precipitation","mm")
+
+    let cloudCoverage = new CloudCoveragePrediction(10,20,date,"Horsens", dataObj);
 
     expect(cloudCoverage.from()).toBe(10);
     expect(cloudCoverage.to()).toBe(20);
