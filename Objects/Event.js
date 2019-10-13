@@ -1,9 +1,10 @@
-function Event(timeVal, placeVal) {
-    this.timeVal = timeVal
-    this.placeVal = placeVal
+class Event {
+    constructor(timeVal,placeVal){
+        this.timeVal = timeVal;
+        this.placeVal = placeVal;
+    }
+    time() { return this.timeVal; } 
+    place() { return this.placeVal; } 
 }
-
-Event.prototype.time = function() { return this.timeVal }
-Event.prototype.place = function() { return this.placeVal }
 
 module.exports = { Event }

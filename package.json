@@ -1,0 +1,22 @@
+{
+  "name": "courseassignment2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skukan159/SWAAssignment2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skukan159/SWAAssignment2/issues"
+  },
+  "homepage": "https://github.com/skukan159/SWAAssignment2#readme",
+  "dependencies": {
+    "jest": "^24.9.0"
+  }
+}
