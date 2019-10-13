@@ -18,7 +18,7 @@ class PrecipitationPrediction extends WeatherPrediction {
         } 
     }
     convertToInches() { 
-        if(this.unitVal.toLowerCase() != "inches")
+        if (this.unitVal.toLowerCase() != "inches")
         {
             this.fromVal = this.fromVal / 25.4; 
             this.toVal = this.toVal / 25.4;

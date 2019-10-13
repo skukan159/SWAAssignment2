@@ -8,7 +8,7 @@ class TemperaturePrediction extends WeatherPrediction {
     }
 
     convertToF() { 
-        if(this.unitVal.toLowerCase() != "fahrenheit"){
+        if (this.unitVal.toLowerCase() != "fahrenheit"){
             this.fromVal = (this.fromVal * 9/5) + 32; 
             this.toVal = (this.toVal * 9/5) + 32; 
             this.unitVal = "Fahrenheit" 

@@ -20,7 +20,7 @@ class WindPrediction extends WeatherPrediction {
         } 
     }
     convertToMS() { 
-        if(this.unitVal.toLowerCase() != "ms")
+        if (this.unitVal.toLowerCase() != "ms")
         {
             this.fromVal = this.fromVal / 2.237; 
             this.toVal = this.toVal / 2.237;

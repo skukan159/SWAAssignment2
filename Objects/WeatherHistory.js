@@ -1,38 +1,22 @@
 class WeatherHistory {
-    constructor(weatherDataVals, currentPlaceVal, currentTypeVal, currentPeriodVal) {
-        this.weatherDataVals = weatherDataVals;
-        this.currentPlaceVal = currentPlaceVal;
-        this.currentTypeVal = currentTypeVal;
-        this.currentPeriodVal = currentPeriodVal;
+    constructor(weatherData) {
+        this.weatherDataVals = weatherData;
     }
 
-    getCurrentPlace() {
-        return this.currentPlaceVal;
-    }
-    setCurrentPlace(newCurrentPlace) {
-        this.currentPlaceVal = newCurrentPlace;
-    }
-    clearCurrentPlace() {
-        this.currentPlaceVal = "";
-    }
-    getCurrentType() {
-        return this.currentTypeVal;
-    }
-    setCurrentType(newCurrentType) {
-        this.currentTypeVal = newCurrentType;
-    }
-    clearCurrentType() {
-        this.currentTypeVal = "";
+    forPlace(place) {
+        return this.weatherDataVals.find(wd => wd.place() == place)
     }
 
-    getCurrentPeriod() {
-        return this.currentPeriodVal;
+    forType(type) {
+        return this.weatherDataVals.find(wd => wd.type() == type)    
     }
-    setCurrentPeriod(newCurrentPeriod) {
-        this.currentPeriodVal = newCurrentPeriod;
+
+    forPeriod(period) {
+        return this.weatherDataVals.find(wd => period.contains(wd.date()))           
     }
-    clearCurrentPeriod() {
-        this.currentPeriodVal = "";
+
+    including(data) {
+        return data.concat(this.weatherDataVals)
     }
 
     convertToUSUnits() {
@@ -69,13 +53,6 @@ class WeatherHistory {
         })
     }
 
-    add(data) {
-        if (Object.prototype.toString.call(data) === "[object Array]") {
-            data.forEach(weatherDataObj => this.weatherDataVals.push(weatherDataObj))
-            return;
-        }
-        this.weatherDataVals.push(data)
-    }
 
     data() {
         let filteredWeatherData = this.weatherDataVals.filter((weatherDataObj) => {
@@ -86,6 +63,24 @@ class WeatherHistory {
             }
         })
         return filteredWeatherData;
+    }
+
+    lowestValue() {
+        if (weatherDataVals === undefined || weatherDataVals.length == 0) {
+            return undefined
+        }
+
+        if (weatherDataVals.some(wd => wd.type() != weatherDataVals[0].type())) {
+            // Not all weather data types are the same
+            return undefined    
+        }
+
+        let weatherDataValues = this.weatherDataVals.map(wd => wd.value())
+        return Math.min(...weatherDataValues)
+    }
+
+    data() {
+        return this.weatherDataVals
     }
 }
 

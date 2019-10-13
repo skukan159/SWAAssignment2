@@ -1,49 +1,27 @@
 class WeatherForecast {
-    constructor(weatherForecastVal, currentPlaceVal, currentTypeVal, currentPeriodVal) {
-        this.weatherForecastVal = weatherForecastVal
-        this.currentPlaceVal = currentPlaceVal
-        this.currentTypeVal = currentTypeVal
-        this.currentPeriodVal = currentPeriodVal
+
+    constructor(data) {
+        this.weatherForecastVals = data
     }
 
-    getCurrentPlace() {
-        return this.currentPlaceVal
+    forPlace(place) {
+        return this.weatherForecastVals.find(wp => wp.place() == place)
     }
 
-    setCurrentPlace(newCurrentPlace) {
-        this.currentPlaceVal = newCurrentPlace
+    forType(type) {
+        return this.weatherForecastVals.find(wp => wp.type() == type)    
     }
 
-    clearCurrentPlace() {
-        this.currentPlaceVal = ""
+    forPeriod(period) {
+        return this.weatherForecastVals.find(wp => period.contains(wp.date()))           
     }
 
-    getCurrentType() {
-        return this.currentTypeVal
-    }
-
-    setCurrentType(newCurrentType) {
-        this.currentTypeVal = newCurrentType
-    }
-
-    clearCurrentType() {
-        this.currentTypeVal = ""
-    }
-
-    getCurrentPeriod() {
-        return this.currentPeriodVal
-    }
-
-    setCurrentPeriod(newCurrentPeriodVal) {
-        this.currentPeriodVal = newCurrentPeriodVal
-    }
-
-    clearCurrentPeriod() {
-        this.currentPeriodVal = ""
+    including(data) {
+        return data.concat(this.weatherForecastVals)
     }
 
     convertToUSUnits() {
-        this.weatherForecastVal.forEach((weatherPrediction) => {
+        this.weatherForecastVals.forEach((weatherPrediction) => {
             switch (weatherPrediction.type().toLowerCase()) {
                 case "temperature":
                     weatherPrediction.convertToF();
@@ -60,7 +38,7 @@ class WeatherForecast {
     }
 
     convertToInternationalUnits() {
-        this.weatherForecastVal.forEach((weatherForecast) => {
+        this.weatherForecastVals.forEach((weatherForecast) => {
             switch (weatherForecast.type().toLowerCase()) {
                 case "temperature":
                     weatherForecast.convertToC();
@@ -76,23 +54,26 @@ class WeatherForecast {
         })
     }
 
-    add(data) {
-        if (Object.prototype.toString.call(data) === "[object Array]") {
-            data.forEach(weatherDataObj => this.weatherForecastVal.push(weatherDataObj))
-            return;
+    averageFromValue() {
+        if (weatherForecastVals === undefined || weatherForecastVals.length == 0) {
+            return undefined
         }
-        this.weatherForecastVal.push(data)
+
+        let weatherPredictionFromValues = this.weatherDataVals.map(wp => wp.from())
+        return weatherPredictionFromValues.reduce(( p, c) => p + c, 0 ) / weatherPredictionFromValues.length;
+    }
+
+    averageToValue() {
+        if (weatherForecastVals === undefined || weatherForecastVals.length == 0) {
+            return undefined
+        }
+
+        let weatherPredictionFromValues = this.weatherDataVals.map(wp => wp.to())
+        return weatherPredictionFromValues.reduce((p, c) => p + c, 0) / weatherPredictionFromValues.length; 
     }
 
     data() {
-        let filteredWeatherData = this.weatherForecastVal.filter((weatherDataObj) => {
-            if ((weatherDataObj.type() === this.currentTypeVal || this.currentTypeVal  === "")
-                && (weatherDataObj.place() === this.currentPlaceVal || this.currentPlaceVal === "")
-                && (this.currentPeriodVal.contains(weatherDataObj.time()) === true || this.currentPeriodVal === "")) {
-                return weatherDataObj;
-            }
-        })
-        return filteredWeatherData;
+        return this.weatherForecastVals
     }
 }
 
