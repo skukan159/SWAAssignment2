@@ -1,9 +1,9 @@
 const { WeatherData } = require("./WeatherData");
 
 class Wind extends WeatherData {
-    constructor(directionVal,valueVal, unitVal ,timeVal, placeVal){
+    constructor(directionVal,valueVal, unitVal, eventObj){
         let typeVal = "Wind"
-        super(valueVal, typeVal, unitVal ,timeVal, placeVal);
+        super(valueVal, typeVal, unitVal, eventObj);
         this.directionVal = directionVal;
     }
     

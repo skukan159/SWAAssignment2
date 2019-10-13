@@ -1,9 +1,9 @@
 const { WeatherData } = require("./WeatherData");
 
 class Temperature extends WeatherData {
-    constructor(valueVal, unitVal ,timeVal, placeVal){
+    constructor(valueVal, unitVal, eventObj){
         let typeVal = "Temperature"
-        super(valueVal, typeVal, unitVal ,timeVal, placeVal);
+        super(valueVal, typeVal, unitVal, eventObj);
     }
     convertToF(){ 
         if(this.unitVal.toLowerCase() != "fahrenheit"){
