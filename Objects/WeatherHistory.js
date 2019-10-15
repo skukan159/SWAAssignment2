@@ -4,65 +4,63 @@ class WeatherHistory {
     }
 
     forPlace(place) {
-        return this.weatherDataVals.find(wd => wd.place() == place)
+        let newWeatherData = this.weatherDataVals.filter(wd => wd.place() == place)
+        return new WeatherHistory(newWeatherData);
     }
-
+ 
     forType(type) {
-        return this.weatherDataVals.find(wd => wd.type() == type)    
+        let newWeatherData = this.weatherDataVals.filter(wd => wd.type() == type)
+        return new WeatherHistory(newWeatherData);
     }
 
     forPeriod(period) {
-        return this.weatherDataVals.find(wd => period.contains(wd.date()))           
+        let newWeatherData = this.weatherDataVals.filter(wd => period.contains(wd.time()))
+        return new WeatherHistory(newWeatherData);          
     }
 
     including(data) {
-        return data.concat(this.weatherDataVals)
+        let newWeatherData = data.concat(this.weatherDataVals)
+        return new WeatherHistory(newWeatherData);
     }
 
     convertToUSUnits() {
-        this.weatherDataVals.forEach((weatherData) => {
+        let newWeatherDataVals = this.weatherDataVals.map((weatherData) => {
+            let newWeatherData;
             switch (weatherData.type().toLowerCase()) {
                 case "temperature":
-                    weatherData.convertToF();
+                    newWeatherData = weatherData.convertToF();
                     break;
                 case "precipitation":
-                    weatherData.convertToInches();
+                    newWeatherData = weatherData.convertToInches();
                     break;
                 case "wind":
-                    convertToMPH();
+                    newWeatherData = weatherData.convertToMPH();
                 default:
                     break;
             }
+            return newWeatherData
         })
+        return new WeatherHistory(newWeatherDataVals);
     }
 
     convertToInternationalUnits() {
-        this.weatherDataVals.forEach((weatherData) => {
+        let newWeatherDataVals = this.weatherDataVals.map((weatherData) => {
+            let newWeatherData;
             switch (weatherData.type().toLowerCase()) {
                 case "temperature":
-                    weatherData.convertToC();
+                    newWeatherData = weatherData.convertToC();
                     break;
                 case "precipitation":
-                    weatherData.convertToMM();
+                    newWeatherData = weatherData.convertToMM();
                     break;
                 case "wind":
-                    convertToMS();
+                    newWeatherData = weatherData.convertToMS();
                 default:
                     break;
             }
+            return newWeatherData;
         })
-    }
-
-
-    data() {
-        let filteredWeatherData = this.weatherDataVals.filter((weatherDataObj) => {
-            if ((weatherDataObj.type() === this.currentTypeVal || this.currentTypeVal === "")
-                && (weatherDataObj.place() === this.currentPlaceVal || this.currentPlaceVal === "")
-                && (this.currentPeriodVal.contains(weatherDataObj.time()) === true || this.currentPeriodVal === "")) {
-                return weatherDataObj;
-            }
-        })
-        return filteredWeatherData;
+        return new WeatherHistory(newWeatherDataVals);
     }
 
     lowestValue() {
@@ -79,9 +77,7 @@ class WeatherHistory {
         return Math.min(...weatherDataValues)
     }
 
-    data() {
-        return this.weatherDataVals
-    }
+    data() { return this.weatherDataVals; }
 }
 
 module.exports = { WeatherHistory }

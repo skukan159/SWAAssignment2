@@ -1,5 +1,4 @@
 const { Event } = require('./Event');
-
 const { DataType } = require('./DataType')
 const { DateInterval } = require('./DateInterval')
 const { WeatherData } = require('./WeatherData')
@@ -12,9 +11,11 @@ const { PrecipitationPrediction } = require('./PrecipitationPrediction')
 const { WindPrediction } = require('./WindPrediction')
 const { CloudCoveragePrediction } = require('./CloudCoveragePrediction')
 const { WeatherPrediction } = require('./WeatherPrediction')
+const { WeatherHistory } = require('./WeatherHistory')
 /*
 const { WeatherForecast } = require('./WeatherForecast')
-const { WeatherHistory } = require('./WeatherHistory')*/
+
+*/
 
 test('Event class tests', () => {
     let date = new Date()
@@ -72,11 +73,11 @@ test('Temperature tests', () => {
     expect(temperatureData.type()).toBe("Temperature");
     expect(temperatureData.unit()).toBe("Celsius");
 
-    temperatureData.convertToF();
+    temperatureData = temperatureData.convertToF();
     expect(temperatureData.value()).toBe((10 * 9/5) + 32);
     expect(temperatureData.unit()).toBe("Fahrenheit");
 
-    temperatureData.convertToC();
+    temperatureData = temperatureData.convertToC();
     expect(temperatureData.value()).toBe(10);
     expect(temperatureData.unit()).toBe("Celsius");
 })
@@ -92,11 +93,11 @@ test('Precipitation tests', () => {
     expect(precipitation.type()).toBe("Precipitation");
     expect(precipitation.unit()).toBe("mm");
 
-    precipitation.convertToInches();
+    precipitation = precipitation.convertToInches();
     expect(precipitation.value()).toBe(10/25.4);
     expect(precipitation.unit()).toBe("Inches");
 
-    precipitation.convertToMM();
+    precipitation = precipitation.convertToMM();
     expect(precipitation.value()).toBe(10);
     expect(precipitation.unit()).toBe("MM");
 })
@@ -113,11 +114,11 @@ test('Wind tests', () => {
     expect(wind.type()).toBe("Wind");
     expect(wind.unit()).toBe("MS");
 
-    wind.convertToMPH();
+    wind = wind.convertToMPH();
     expect(wind.value()).toBe(10 * 2.237);
     expect(wind.unit()).toBe("MPH");
 
-    wind.convertToMS();
+    wind = wind.convertToMS();
     expect(wind.value()).toBe(10);
     expect(wind.unit()).toBe("MS");
 })
@@ -169,10 +170,10 @@ test('Temperature prediction test', () => {
 
     let temperaturePredictionData = new TemperaturePrediction(10,15,date,"Horsens", dataObj);
 
-        temperaturePredictionData.convertToC();
-        expect(temperaturePredictionData.from()).toBe((10-32) * 5 /9);
-        expect(temperaturePredictionData.to()).toBe((15-32) * 5 / 9);
-        expect(temperaturePredictionData.unit()).toBe("Celsius");
+    temperaturePredictionData = temperaturePredictionData.convertToC();
+    expect(temperaturePredictionData.from()).toBe((10-32) * 5 /9);
+    expect(temperaturePredictionData.to()).toBe((15-32) * 5 / 9);
+    expect(temperaturePredictionData.unit()).toBe("Celsius");
 })
 
 test('PrecipitationPrediction test', () => {
@@ -194,12 +195,12 @@ test('PrecipitationPrediction test', () => {
     expect(precipitationPrediction.type()).toBe("Precipitation");
     expect(precipitationPrediction.unit()).toBe("mm");
 
-    precipitationPrediction.convertToInches();
+    precipitationPrediction = precipitationPrediction.convertToInches();
     expect(precipitationPrediction.from()).toBe(5/25.4);
     expect(precipitationPrediction.to()).toBe(10/25.4);
     expect(precipitationPrediction.unit()).toBe("Inches");
 
-    precipitationPrediction.convertToMM();
+    precipitationPrediction = precipitationPrediction.convertToMM();
     expect(precipitationPrediction.from()).toBe(5);
     expect(precipitationPrediction.to()).toBe(10);
     expect(precipitationPrediction.unit()).toBe("MM");
@@ -239,8 +240,7 @@ test('CloudCoveragePrediction test', () => {
     expect(cloudCoverage.type()).toBe("Cloud Coverage");
     expect(cloudCoverage.unit()).toBe("okta");
 })
-/*
-//TODO: Test not finished yet
+
 test('WeatherHistory test', () => {
     let fromDate = new Date();
     fromDate.setFullYear(1996, 11, 18)
@@ -254,40 +254,31 @@ test('WeatherHistory test', () => {
     toDate.setFullYear(2001, 22, 12)
     let dateInterval2 = new DateInterval(fromDate2, toDate2);
 
-    let eventObj = new Event(date,"Horsens")
-    let eventObj2 = new Event(date,"Vejle")
+    let eventObj = new Event(fromDate,"Horsens")
+    let eventObj2 = new Event(toDate,"Horsens")
 
+    let eventObj3 = new Event(fromDate2,"Vejle")
+    let eventObj4 = new Event(toDate2,"Vejle")
 
-    let date = new Date();
     let data1 = new Temperature(10, "Celsius", eventObj);
     let data2 = new Temperature(12, "Celsius", eventObj2);
     let dataArray = [data1, data2];
     let weatherHistory1 = new WeatherHistory(dataArray);
 
+    //for place
+    expect(weatherHistory1.forPlace("Horsens").data()).toMatchObject([data1,data2]);
 
-    //place test
-    expect(weatherHistory1.getCurrentPlace()).toBe("Horsens");
-    weatherHistory1.setCurrentPlace("vejle");
-    expect(weatherHistory1.getCurrentPlace()).toBe("vejle");
-    weatherHistory1.clearCurrentPlace();
-    expect(weatherHistory1.getCurrentPlace()).toBe("");
+    //for type - TODO
+    expect(weatherHistory1.forType("Temperature").data()).toMatchObject([data1,data2]);
 
-    //type test
-    expect(weatherHistory1.getCurrentType()).toBe("Temperature");
-    weatherHistory1.setCurrentType("vejle");
-    expect(weatherHistory1.getCurrentType()).toBe("vejle");
-    weatherHistory1.clearCurrentType();
-    expect(weatherHistory1.getCurrentType()).toBe("");
+    //for period
+    expect(weatherHistory1.forPeriod(dateInterval1).data()).toMatchObject([data1,data2]);
 
-    //period test
-    expect(weatherHistory1.getCurrentPeriod()).toBe(dateInterval1);
-    weatherHistory1.setCurrentPeriod(dateInterval2);
-    expect(weatherHistory1.getCurrentPeriod()).toBe(dateInterval2);
-    weatherHistory1.clearCurrentPeriod();
-    expect(weatherHistory1.getCurrentPeriod()).toBe("");
+    
+    //Including
 
     //Unit Conversion
-    weatherHistory1.convertToUSUnits();
+    weatherHistory1 = weatherHistory1.convertToUSUnits();
     expect(data1.value()).toBe((10 * 9 / 5) + 32);
     expect(data1.unit()).toBe("Fahrenheit");
 
@@ -295,8 +286,12 @@ test('WeatherHistory test', () => {
     expect(data1.value()).toBe(10);
     expect(data1.unit()).toBe("Celsius");
 
+    //Lowest Value
 
-    let weatherData3 = new Temperature(15, "Celsius", eventObj2);
+    //Data
+
+
+    /*let weatherData3 = new Temperature(15, "Celsius", eventObj2);
     weatherHistory1.add(weatherData3);
 
     weatherHistory1.setCurrentPlace("friv");
@@ -307,9 +302,9 @@ test('WeatherHistory test', () => {
     expect(weatherHistory1.getCurrentType()).toBe("Temperature");
     expect(weatherHistory1.getCurrentPeriod()).toBe(dateInterval1);
 
-    expect(weatherHistory1.data().toString()).toBe([weatherData3].toString());
+    expect(weatherHistory1.data().toString()).toBe([weatherData3].toString());*/
 })
-
+/*
 test('WeatherForecast test', () => {
     let fromDate = new Date();
     fromDate.setFullYear(1996, 11, 18)

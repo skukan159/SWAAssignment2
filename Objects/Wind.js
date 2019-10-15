@@ -8,8 +8,20 @@ class Wind extends WeatherData {
     }
     
     direction(){ return this.directionVal }
-    convertToMPH() { this.valueVal = this.valueVal * 2.237; this.unitVal = "MPH" }
-    convertToMS() { this.valueVal = this.valueVal / 2.237; this.unitVal = "MS" }
+    convertToMPH() {
+        if(this.unitVal.toLowerCase() != "mph"){
+            let newValue = this.valueVal * 2.237;
+            let newUnit = "MPH"
+            return new Wind(this.directionVal,newValue,newUnit,this.eventObj);
+        }
+    }
+    convertToMS() {
+        if(this.unitVal.toLowerCase() != "ms"){
+            let newValue = this.valueVal / 2.237;
+            let newUnit = "MS"
+            return new Wind(this.directionVal,newValue,newUnit,this.eventObj);
+        }
+    }
 }
 
 module.exports = { Wind }

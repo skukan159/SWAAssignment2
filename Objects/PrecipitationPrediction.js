@@ -12,17 +12,21 @@ class PrecipitationPrediction extends WeatherPrediction {
 
     convertToMM() { 
         if (this.unit().toLowerCase() != "mm"){
-            this.fromVal = this.fromVal * 25.4; 
-            this.toVal = this.toVal * 25.4; 
-            this.dataTypeObj = new DataType(this.dataTypeObj.type(),"MM") 
+            let newFromVal = this.fromVal * 25.4; 
+            let newToVal = this.toVal * 25.4; 
+            let newDataTypeObj = new DataType(this.dataTypeObj.type(),"MM");
+            return new PrecipitationPrediction
+            (this.typesVal,newFromVal,newToVal,this.timeVal,this.placeVal,newDataTypeObj); 
         } 
     }
     convertToInches() { 
         if (this.unit().toLowerCase() != "inches")
         {
-            this.fromVal = this.fromVal / 25.4; 
-            this.toVal = this.toVal / 25.4;
-            this.dataTypeObj = new DataType(this.dataTypeObj.type(),"Inches")
+            let newFromVal = this.fromVal / 25.4; 
+            let newToVal = this.toVal / 25.4;
+            let newDataTypeObj = new DataType(this.dataTypeObj.type(),"Inches")
+            return new PrecipitationPrediction
+            (this.typesVal,newFromVal,newToVal,this.timeVal,this.placeVal,newDataTypeObj); 
         }
     }
 }

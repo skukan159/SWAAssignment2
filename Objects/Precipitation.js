@@ -10,14 +10,18 @@ class Precipitation extends WeatherData {
     precipitationType(){ return state.precipitationTypeVal }
     convertToInches() { 
         if(this.unitVal.toLowerCase() != "Inches"){
-            this.valueVal = this.valueVal / 25.4; 
-            this.unitVal = "Inches"
+            let newValue = this.valueVal / 25.4; 
+            let newUnit = "Inches"
+            return new Precipitation
+            (this.precipitationTypeVal,newValue,newUnit,this.eventObj)
         }
      }
     convertToMM(){ 
         if(this.unitVal.toLowerCase() != "mm"){
-            this.valueVal = this.valueVal * 25.4; 
-            this.unitVal = "MM" 
+            let newValue = this.valueVal * 25.4; 
+            let newUnit = "MM"
+            return new Precipitation
+            (this.precipitationTypeVal,newValue,newUnit,this.eventObj)
         }
     }
 }

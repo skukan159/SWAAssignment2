@@ -7,14 +7,16 @@ class Temperature extends WeatherData {
     }
     convertToF(){ 
         if(this.unitVal.toLowerCase() != "fahrenheit"){
-            this.valueVal = (this.valueVal * 9/5) + 32; 
-            this.unitVal = "Fahrenheit" 
+            let newValue = (this.valueVal * 9/5) + 32; 
+            let newUnit = "Fahrenheit";
+            return new Temperature(newValue,newUnit,this.eventObj);
         }
     }
     convertToC(){ 
         if(this.unitVal.toLowerCase() != "celsius"){
-            this.valueVal = (this.valueVal - 32) * 5 / 9; 
-            this.unitVal = "Celsius"
+            let newValue = (this.valueVal - 32) * 5 / 9; 
+            let newUnit = "Celsius"
+            return new Temperature(newValue,newUnit,this.eventObj);
         }
     }
 }

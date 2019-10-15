@@ -9,23 +9,25 @@ class WindPrediction extends WeatherPrediction {
         this.directionsVal = directionsVal;
     }
 
-    directions() {
-        return this.directionsVal;
-    }
+    directions() { return this.directionsVal; }
 
     convertToMPH() { 
-        if (this.unitVal.toLowerCase() != "mph"){
-            this.fromVal = this.fromVal * 2.237; 
-            this.toVal = this.toVal * 2.237; 
-            this.unitVal = "MPH" 
+        if (this.unit().toLowerCase() != "mph"){
+            let newFromVal = this.fromVal * 2.237; 
+            let newToVal = this.toVal * 2.237; 
+            let newDataTypeObj = new DataType(this.dataTypeObj.type(),"MPH"); 
+            return new WindPrediction
+            (this.directionsVal,newFromVal,newToVal,this.timeVal,this.place,newDataTypeObj) 
         } 
     }
     convertToMS() { 
-        if (this.unitVal.toLowerCase() != "ms")
+        if (this.unit().toLowerCase() != "ms")
         {
-            this.fromVal = this.fromVal / 2.237; 
-            this.toVal = this.toVal / 2.237;
-            this.unitVal = "MS"
+            let newFromVal = this.fromVal / 2.237; 
+            let newToVal = this.toVal / 2.237;
+            let newDataTypeObj = new DataType(this.dataTypeObj.type(),"MS"); 
+            return new WindPrediction
+            (this.directionsVal,newFromVal,newToVal,this.timeVal,this.place,newDataTypeObj) 
         }
  
     }
