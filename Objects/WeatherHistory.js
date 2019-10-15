@@ -77,7 +77,9 @@ class WeatherHistory {
         return Math.min(...weatherDataValues)
     }
 
-    data() { return this.weatherDataVals; }
+    data() { 
+        return this.weatherDataVals; 
+    }
 }
 
 module.exports = { WeatherHistory }

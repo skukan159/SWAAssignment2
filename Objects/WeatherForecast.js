@@ -70,7 +70,7 @@ class WeatherForecast {
         }
 
         let weatherPredictionFromValues = this.weatherForecastVals.map(wp => wp.from())
-        return weatherPredictionFromValues.reduce(( p, c) => p + c, 0 ) / weatherPredictionFromValues.length;
+        return average(weatherPredictionFromValues)
     }
 
     averageToValue() {
@@ -79,7 +79,11 @@ class WeatherForecast {
         }
 
         let weatherPredictionFromValues = this.weatherForecastVals.map(wp => wp.to())
-        return weatherPredictionFromValues.reduce((p, c) => p + c, 0) / weatherPredictionFromValues.length; 
+        return this.average(weatherPredictionFromValues) 
+    }
+
+    average(array) {
+        return array.reduce((p, c) => p + c, 0) / array.length;
     }
 
     data() {
