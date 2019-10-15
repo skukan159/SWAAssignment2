@@ -19,7 +19,7 @@ class WeatherHistory {
     }
 
     including(data) {
-        let newWeatherData = data.concat(this.weatherDataVals)
+        let newWeatherData = this.weatherDataVals.concat(data);
         return new WeatherHistory(newWeatherData);
     }
 
@@ -64,11 +64,11 @@ class WeatherHistory {
     }
 
     lowestValue() {
-        if (weatherDataVals === undefined || weatherDataVals.length == 0) {
+        if (this.weatherDataVals === undefined || this.weatherDataVals.length == 0) {
             return undefined
         }
 
-        if (weatherDataVals.some(wd => wd.type() != weatherDataVals[0].type())) {
+        if (this.weatherDataVals.some(wd => wd.type() != this.weatherDataVals[0].type())) {
             // Not all weather data types are the same
             return undefined    
         }

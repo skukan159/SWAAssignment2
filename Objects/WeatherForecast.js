@@ -5,70 +5,80 @@ class WeatherForecast {
     }
 
     forPlace(place) {
-        return this.weatherForecastVals.find(wp => wp.place() == place)
+        let newWeatherForecast = this.weatherForecastVals.filter(wd => wd.place() == place)
+        return new WeatherForecast(newWeatherForecast);
     }
-
+ 
     forType(type) {
-        return this.weatherForecastVals.find(wp => wp.type() == type)    
+        let newWeatherForecast = this.weatherForecastVals.filter(wd => wd.type() == type)
+        return new WeatherForecast(newWeatherForecast);
     }
 
     forPeriod(period) {
-        return this.weatherForecastVals.find(wp => period.contains(wp.date()))           
+        let newWeatherForecast = this.weatherForecastVals.filter(wd => period.contains(wd.time()))
+        return new WeatherForecast(newWeatherForecast);          
     }
 
     including(data) {
-        return data.concat(this.weatherForecastVals)
+        let newWeatherForecast = this.weatherForecastVals.concat(data);
+        return new WeatherForecast(newWeatherForecast);
     }
 
     convertToUSUnits() {
-        this.weatherForecastVals.forEach((weatherPrediction) => {
-            switch (weatherPrediction.type().toLowerCase()) {
+        let newweatherForecastVals = this.weatherForecastVals.map((weatherForecast) => {
+            let newWeatherForecast;
+            switch (weatherForecast.type().toLowerCase()) {
                 case "temperature":
-                    weatherPrediction.convertToF();
+                    newWeatherForecast = weatherForecast.convertToF();
                     break;
                 case "precipitation":
-                    weatherPrediction.convertToInches();
+                    newWeatherForecast = weatherForecast.convertToInches();
                     break;
                 case "wind":
-                    convertToMPH();
+                    newWeatherForecast = weatherForecast.convertToMPH();
                 default:
                     break;
             }
+            return newWeatherForecast
         })
+        return new WeatherForecast(newweatherForecastVals);
     }
 
     convertToInternationalUnits() {
-        this.weatherForecastVals.forEach((weatherForecast) => {
+        let newweatherForecastVals = this.weatherForecastVals.map((weatherForecast) => {
+            let newWeatherForecast;
             switch (weatherForecast.type().toLowerCase()) {
                 case "temperature":
-                    weatherForecast.convertToC();
+                    newWeatherForecast = weatherForecast.convertToC();
                     break;
                 case "precipitation":
-                    weatherForecast.convertToMM();
+                    newWeatherForecast = weatherForecast.convertToMM();
                     break;
                 case "wind":
-                    convertToMS();
+                    newWeatherForecast = weatherForecast.convertToMS();
                 default:
                     break;
             }
+            return newWeatherForecast;
         })
+        return new WeatherForecast(newweatherForecastVals);
     }
 
     averageFromValue() {
-        if (weatherForecastVals === undefined || weatherForecastVals.length == 0) {
+        if (this.weatherForecastVals === undefined || this.weatherForecastVals.length == 0) {
             return undefined
         }
 
-        let weatherPredictionFromValues = this.weatherDataVals.map(wp => wp.from())
+        let weatherPredictionFromValues = this.weatherForecastVals.map(wp => wp.from())
         return weatherPredictionFromValues.reduce(( p, c) => p + c, 0 ) / weatherPredictionFromValues.length;
     }
 
     averageToValue() {
-        if (weatherForecastVals === undefined || weatherForecastVals.length == 0) {
+        if (this.weatherForecastVals === undefined || this.weatherForecastVals.length == 0) {
             return undefined
         }
 
-        let weatherPredictionFromValues = this.weatherDataVals.map(wp => wp.to())
+        let weatherPredictionFromValues = this.weatherForecastVals.map(wp => wp.to())
         return weatherPredictionFromValues.reduce((p, c) => p + c, 0) / weatherPredictionFromValues.length; 
     }
 
