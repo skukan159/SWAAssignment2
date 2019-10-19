@@ -316,7 +316,7 @@
 
         if (weatherPrediction['precipitation_types'] != null)
         {
-            detailsCell.innerHTML = weatherPrediction.precipitation_types.join(',\n');
+            detailsCell.innerHTML = weatherPrediction.precipitation_types.join('\n');
         } else if (weatherPrediction['directions'] != null) {
             detailsCell.innerHTML = weatherPrediction.directions.join('\n');
         } else {

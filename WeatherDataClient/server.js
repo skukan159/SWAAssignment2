@@ -1,9 +1,9 @@
 const express = require('express')
 const body_parser = require('body-parser')
 const WebSocket = require('ws')
-const generator = require('./model/generate.js.js')
-const { alert } = require('./model/model.js.js')
-const { partition, findLast } = require('./util/utils.js.js')
+const generator = require('./model/generate.js')
+const { alert } = require('./model/model.js')
+const { partition, findLast } = require('./util/utils.js')
 
 const web_service_port = 8080
 const web_socket_port = 8090

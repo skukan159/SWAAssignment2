@@ -1,7 +1,7 @@
-const { pipe, flatMap } = require('../util/utils.js.js')
-const { beginning_of_day, beginning_of_hour, hours_after, next_24_hours, hours_in_latest_week } = require('../util/dates.js.js')
+const { pipe, flatMap } = require('../util/utils.js')
+const { beginning_of_day, beginning_of_hour, hours_after, next_24_hours, hours_in_latest_week } = require('../util/dates.js')
 
-const model = require('./model.js.js')
+const model = require('./model.js')
 
 const round_to = decimals => number => Math.floor(number * Math.pow(10, decimals)) / Math.pow(10, decimals)
 const random_number = ({min, max}) => round_to(1)(Math.random() * (max - min) + min)
