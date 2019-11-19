@@ -123,8 +123,8 @@
 <script type = 'module'>
 
     // 1. All data for the latest measurement of each kind
-    async function showLatestMeasurementOfEachKindForLast5Days(cityName) {
-        await fetch('http://localhost:8080/data/' + cityName)
+    function showLatestMeasurementOfEachKindForLast5Days(cityName) {
+        fetch('http://localhost:8080/data/' + cityName)
             .then(response => response.json())
             .then(weatherData => {
                 // Get latest data of each type
@@ -146,8 +146,8 @@
     }
     
     // 2. Minimum temperature for the last 5 day
-    async function showMinimumTemperatureForLast5Days(cityName) {
-        await fetch('http://localhost:8080/data/' + cityName)
+    function showMinimumTemperatureForLast5Days(cityName) {
+        fetch('http://localhost:8080/data/' + cityName)
             .then(response => response.json())
             .then(weatherData => {
                 // Find min temperature weather data within last 5 days 
@@ -167,8 +167,8 @@
     }
 
     // 3. Maximum temperature for the last 5 days
-    async function showMaximumTemperatureForLast5Days(cityName) {
-        await fetch('http://localhost:8080/data/' + cityName)
+    function showMaximumTemperatureForLast5Days(cityName) {
+        fetch('http://localhost:8080/data/' + cityName)
             .then(response => response.json())
             .then(weatherData => {
                 // Find max temperature within last 5 days
@@ -188,8 +188,8 @@
     }
 
     // 4. Total precipitation for the last 5 days
-    async function showTotalPrecipitationForLast5Days(cityName) {
-        await fetch('http://localhost:8080/data/' + cityName)
+    function showTotalPrecipitationForLast5Days(cityName) {
+        fetch('http://localhost:8080/data/' + cityName)
             .then(response => response.json())
             .then(weatherData => {
                 // Calculate total precipitaiton
@@ -205,8 +205,8 @@
     }
     
     // 5. Average wind speed for the last 5 days
-    async function showAverageWindSpeedForLast5Days(cityName) {
-        await fetch('http://localhost:8080/data/' + cityName)
+    function showAverageWindSpeedForLast5Days(cityName) {
+        fetch('http://localhost:8080/data/' + cityName)
             .then(response => response.json())
             .then(weatherData => {
                 // Calculate average wind speed
@@ -222,8 +222,8 @@
     }
 
     // 6. Average cloud coverage for the last 5 days
-    async function showAverageCloudCoverageLast5Days(cityName) {
-        await fetch('http://localhost:8080/data/' + cityName)
+    function showAverageCloudCoverageLast5Days(cityName) {
+        fetch('http://localhost:8080/data/' + cityName)
             .then(response => response.json())
             .then(weatherData => {
                 // Calculate average cloud coverage
@@ -239,8 +239,8 @@
     }
 
     // 7. Dominant wind direction for the last 5 days
-    async function showDominantWindDirectionTheLast5Days(cityName) {
-        await fetch('http://localhost:8080/data/' + cityName)
+    function showDominantWindDirectionTheLast5Days(cityName) {
+        fetch('http://localhost:8080/data/' + cityName)
             .then(response => response.json())
             .then(weatherData => {
                 // Determine most common wind direction within last 5 days
@@ -256,8 +256,8 @@
     }
 
     // 8. Predictions for next 24 hours
-    async function showPredictionsForNext24Hours(cityName) {
-        await fetch('http://localhost:8080/forecast/' + cityName)
+    function showPredictionsForNext24Hours(cityName) {
+        fetch('http://localhost:8080/forecast/' + cityName)
             .then(response => response.json())
             .then(weatherPredictions => {
                 let table;
