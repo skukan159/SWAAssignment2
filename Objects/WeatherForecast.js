@@ -70,7 +70,7 @@ class WeatherForecast {
         }
 
         let weatherPredictionFromValues = this.weatherForecastVals.map(wp => wp.from())
-        return average(weatherPredictionFromValues)
+        return this.average(weatherPredictionFromValues)
     }
 
     averageToValue() {
