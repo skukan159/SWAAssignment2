@@ -244,7 +244,7 @@ function appendWeatherDataRow(table, weatherData) {
 }
 
 function getDaysBetween(d1, d2) {
-    var diff = Math.abs(d1.getTime() - d2.getTime());
+    let diff = Math.abs(d1.getTime() - d2.getTime());
     return diff / (1000 * 60 * 60 * 24);
 };
 

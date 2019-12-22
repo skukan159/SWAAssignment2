@@ -81,8 +81,8 @@ function showTotalPrecipitationForLast5Days(cityName) {
 
         // Calculate total precipitaiton
         let totalPrecipitation = weatherData.filter(wd => is(wd, 'precipitation') && isFromLast5Days(wd))
-                                                             .map(wd => wd['value'])
-                                                             .reduce((previousPrecipitation, currentPrecipitation) => previousPrecipitation + currentPrecipitation, 0)
+                                            .map(wd => wd['value'])
+                                            .reduce((previousPrecipitation, currentPrecipitation) => previousPrecipitation + currentPrecipitation, 0)
 
         // Append to html
         let totalPrecipitationDiv = document.getElementById('base')
@@ -127,7 +127,7 @@ function showAverageCloudCoverageForLast5Days(cityName) {
         // Append to html
         let averageCloudCoverageDiv = document.getElementById('base')
         averageCloudCoverageDiv.innerHTML += '<h1>Average cloud coverage within the last 5 days in ' + cityName + ': ' + averageCloudCoverage.toFixed(1) + ' %</h1>'
-    }        
+    }
     request.onerror = (e) => console.error(e) 
     request.send()
 }
@@ -141,7 +141,7 @@ function showDominantWindDirectionForLast5Days(cityName) {
 
         // Determine most common wind direction within last 5 days
         let windDirectionsFromLast5Days = weatherData.filter(wd => is(wd, 'wind speed') && isFromLast5Days(wd))
-                                                      .map(wd => wd['direction'])
+                                                     .map(wd => wd['direction'])
         let mostDominantWindDirection = getHighestOccuringElement(windDirectionsFromLast5Days)
         
         // Append to html
@@ -189,8 +189,7 @@ function appendPredictionToTable(table, weatherPrediction) {
     fromCell.innerHTML = weatherPrediction.from
     toCell.innerHTML = weatherPrediction.to;
 
-    if (weatherPrediction['precipitation_types'] != null)
-    {
+    if (weatherPrediction['precipitation_types'] != null) {
         detailsCell.innerHTML = weatherPrediction.precipitation_types.join('\n');
     } else if (weatherPrediction['directions'] != null) {
         detailsCell.innerHTML = weatherPrediction.directions.join('\n');
@@ -232,10 +231,10 @@ function getHighestOccuringElement(weatherDataArray) {
 
 function filterLatestWeatherData(weatherDataArray) {
     // First as baseline
-    let latestPrecipitation = weatherDataArray.find(weatherData => weatherData.type == 'precipitation')
-    let latestTemperature = weatherDataArray.find(weatherData => weatherData.type == 'temperature')
-    let latestWindSpeed = weatherDataArray.find(weatherData => weatherData.type == 'wind speed')
-    let latestCloudCoverage = weatherDataArray.find(weatherData => weatherData.type == 'cloud coverage')
+    let latestPrecipitation = weatherDataArray.find(weatherData => is(weatherData, 'precipitation'))
+    let latestTemperature = weatherDataArray.find(weatherData => is(weatherData, 'temperature'))
+    let latestWindSpeed = weatherDataArray.find(weatherData => is(weatherData, 'wind speed'))
+    let latestCloudCoverage = weatherDataArray.find(weatherData => is(weatherData, 'cloud coverage'))
 
     // Seperate the data
     weatherDataArray.forEach(weatherData => {
@@ -270,7 +269,7 @@ function appendWeatherDataRow(table, weatherData) {
 }
 
 function getDaysBetween(d1, d2) {
-    var diff = Math.abs(d1.getTime() - d2.getTime());
+    let diff = Math.abs(d1.getTime() - d2.getTime());
     return diff / (1000 * 60 * 60 * 24);
 };
 
@@ -318,4 +317,3 @@ function showWeatherData() {
     showPredictionsForNext24Hours('Copenhagen')
     showPredictionsForNext24Hours('Horsens')
 }
-
