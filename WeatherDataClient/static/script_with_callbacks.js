@@ -155,7 +155,7 @@ function showDominantWindDirectionForLast5Days(cityName) {
 // 8. Predictions for next 24 hours
 function showPredictionsForNext24Hours(cityName) {
     const request = new XMLHttpRequest()
-    request.open('GET', 'http://localhost:8080/forecast/' + cityName)
+    request.open('GET', `http://localhost:8080/data/${cityName}`)
     request.onload = () => {
         const weatherData = JSON.parse(request.responseText)
         
