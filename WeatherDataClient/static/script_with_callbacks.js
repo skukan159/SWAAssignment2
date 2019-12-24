@@ -1,7 +1,7 @@
 // 1. All data for the latest measurement of each kind
 function showLatestMeasurementOfEachKindForLast5Days(cityName) {
     const request = new XMLHttpRequest()
-    request.open('GET', 'http://localhost:8080/data/' + cityName)
+    request.open('GET', `http://localhost:8080/data/${cityName}`)
     request.onload = () => {
         const weatherData = JSON.parse(request.responseText)
 
@@ -27,7 +27,7 @@ function showLatestMeasurementOfEachKindForLast5Days(cityName) {
 // 2. Minimum temperature for the last 5 day
 function showMinimumTemperatureForLast5Days(cityName) {
     const request = new XMLHttpRequest()
-    request.open('GET', 'http://localhost:8080/data/' + cityName)
+    request.open('GET', `http://localhost:8080/data/${cityName}`)
     request.onload = () => {
         const weatherData = JSON.parse(request.responseText)
 
@@ -51,7 +51,7 @@ function showMinimumTemperatureForLast5Days(cityName) {
 // 3. Maximum temperature for the last 5 days
 function showMaximumTemperatureForLast5Days(cityName) {
     const request = new XMLHttpRequest()
-    request.open('GET', 'http://localhost:8080/data/' + cityName)
+    request.open('GET', `http://localhost:8080/data/${cityName}`)
     request.onload = () => {
         const weatherData = JSON.parse(request.responseText)
 
@@ -75,7 +75,7 @@ function showMaximumTemperatureForLast5Days(cityName) {
 // 4. Total precipitation for the last 5 days  
 function showTotalPrecipitationForLast5Days(cityName) {
     const request = new XMLHttpRequest()
-    request.open('GET', 'http://localhost:8080/data/' + cityName)
+    request.open('GET', `http://localhost:8080/data/${cityName}`)
     request.onload = () => {
         const weatherData = JSON.parse(request.responseText)
 
@@ -86,7 +86,7 @@ function showTotalPrecipitationForLast5Days(cityName) {
 
         // Append to html
         let totalPrecipitationDiv = document.getElementById('base')
-        totalPrecipitationDiv.innerHTML += '<h1>Total precipitation within the last 5 days in ' + cityName + ': ' + totalPrecipitation.toFixed(1) + ' mm</h1>'
+        totalPrecipitationDiv.innerHTML += `<h1>Total precipitation within the last 5 days in ${cityName}: ${totalPrecipitation.toFixed(1)} mm</h1>`
     }
     request.onerror = (e) => console.error(e) 
     request.send()
@@ -95,7 +95,7 @@ function showTotalPrecipitationForLast5Days(cityName) {
 // 5. Average wind speed for the last 5 days
 function showAverageWindSpeedForLast5Days(cityName) {
     const request = new XMLHttpRequest()
-    request.open('GET', 'http://localhost:8080/data/' + cityName)
+    request.open('GET', `http://localhost:8080/data/${cityName}`)
     request.onload = () => {
         const weatherData = JSON.parse(request.responseText)
 
@@ -106,7 +106,7 @@ function showAverageWindSpeedForLast5Days(cityName) {
 
         // Append to html
         let averageWindSpeedDiv = document.getElementById('base')
-        averageWindSpeedDiv.innerHTML += '<h1>Average wind speed within the last 5 days in ' + cityName + ': ' + averageWindSpeed.toFixed(1) + ' m/s</h1>'
+        averageWindSpeedDiv.innerHTML += `<h1>Average wind speed within the last 5 days in ${cityName}: ${averageWindSpeed.toFixed(1)} m/s</h1>`
     }
     request.onerror = (e) => console.error(e) 
     request.send()
@@ -115,7 +115,7 @@ function showAverageWindSpeedForLast5Days(cityName) {
 // 6. Average cloud coverage for the last 5 days
 function showAverageCloudCoverageForLast5Days(cityName) {
     const request = new XMLHttpRequest()
-    request.open('GET', 'http://localhost:8080/data/')
+    request.open('GET', `http://localhost:8080/data/${cityName}`)
     request.onload = () => {
         const weatherData = JSON.parse(request.responseText)
         
@@ -126,7 +126,7 @@ function showAverageCloudCoverageForLast5Days(cityName) {
 
         // Append to html
         let averageCloudCoverageDiv = document.getElementById('base')
-        averageCloudCoverageDiv.innerHTML += '<h1>Average cloud coverage within the last 5 days in ' + cityName + ': ' + averageCloudCoverage.toFixed(1) + ' %</h1>'
+        averageCloudCoverageDiv.innerHTML += `<h1>Average cloud coverage within the last 5 days in ${cityName}: ${averageCloudCoverage.toFixed(1)} %</h1>`
     }
     request.onerror = (e) => console.error(e) 
     request.send()
@@ -135,7 +135,7 @@ function showAverageCloudCoverageForLast5Days(cityName) {
 // 7. Dominant wind direction for the last 5 days
 function showDominantWindDirectionForLast5Days(cityName) {
     const request = new XMLHttpRequest()
-    request.open('GET', 'http://localhost:8080/data/' + cityName)
+    request.open('GET', `http://localhost:8080/data/${cityName}`)
     request.onload = () => {
         const weatherData = JSON.parse(request.responseText)
 
@@ -146,7 +146,7 @@ function showDominantWindDirectionForLast5Days(cityName) {
         
         // Append to html
         let mostDominantWindDirectionDiv = document.getElementById('base')
-        mostDominantWindDirectionDiv.innerHTML += '<h1>Most dominant wind direction within the last 5 days in ' + cityName + ': ' + mostDominantWindDirection + '</h1>'  
+        mostDominantWindDirectionDiv.innerHTML += `<h1>Most dominant wind direction within the last 5 days in ${cityName}: ${mostDominantWindDirection}</h1>`  
     }
     request.onerror = (e) => console.error(e) 
     request.send()
@@ -161,11 +161,11 @@ function showPredictionsForNext24Hours(cityName) {
         
         let table;
 
-        if (cityName == 'Aarhus') {
+        if (cityName === 'Aarhus') {
             table = document.getElementById('aarhus_hourly_predictions_table')
-        } else if (cityName == 'Copenhagen') {
+        } else if (cityName === 'Copenhagen') {
             table = document.getElementById('copenhagen_hourly_predictions_table')
-        } else if (cityName == 'Horsens') {
+        } else if (cityName === 'Horsens') {
             table = document.getElementById('horsens_hourly_predictions_table')    
         }
 
@@ -281,7 +281,7 @@ function isFromLast5Days(weatherData) {
 }
 
 function is(weatherData, type) {
-    return weatherData['type'] == type
+    return weatherData['type'] === type
 } 
 
 function showWeatherData() {

@@ -1,6 +1,6 @@
 // 1. All data for the latest measurement of each kind
 function showLatestMeasurementOfEachKindForLast5Days(cityName) {
-    fetch('http://localhost:8080/data/' + cityName)
+    fetch(`http://localhost:8080/data/${cityName}`)
         .then(response => response.json())
         .then(weatherData => {
             // Get latest data of each type
@@ -23,7 +23,7 @@ function showLatestMeasurementOfEachKindForLast5Days(cityName) {
 
 // 2. Minimum temperature for the last 5 day
 function showMinimumTemperatureForLast5Days(cityName) {
-    fetch('http://localhost:8080/data/' + cityName)
+    fetch(`http://localhost:8080/data/${cityName}`)
         .then(response => response.json())
         .then(weatherData => {
             // Find min temperature weather data within last 5 days 
@@ -44,7 +44,7 @@ function showMinimumTemperatureForLast5Days(cityName) {
 
 // 3. Maximum temperature for the last 5 days
 function showMaximumTemperatureForLast5Days(cityName) {
-    fetch('http://localhost:8080/data/' + cityName)
+    fetch(`http://localhost:8080/data/${cityName}`)
         .then(response => response.json())
         .then(weatherData => {
             // Find max temperature within last 5 days
@@ -65,7 +65,7 @@ function showMaximumTemperatureForLast5Days(cityName) {
 
 // 4. Total precipitation for the last 5 days
 function showTotalPrecipitationForLast5Days(cityName) {
-    fetch('http://localhost:8080/data/' + cityName)
+    fetch(`http://localhost:8080/data/${cityName}`)
         .then(response => response.json())
         .then(weatherData => {
             // Calculate total precipitaiton
@@ -75,14 +75,14 @@ function showTotalPrecipitationForLast5Days(cityName) {
 
             // Append to html
             let totalPrecipitationDiv = document.getElementById('base')
-            totalPrecipitationDiv.innerHTML += '<h1>Total precipitation within the last 5 days in ' + cityName + ': ' + totalPrecipitation.toFixed(1) + ' mm</h1>'
+            totalPrecipitationDiv.innerHTML += `<h1>Total precipitation within the last 5 days in ${cityName}: ${totalPrecipitation.toFixed(1)} mm</h1>`
         })
         .catch(console.error)
 }
 
 // 5. Average wind speed for the last 5 days
 function showAverageWindSpeedForLast5Days(cityName) {
-    fetch('http://localhost:8080/data/' + cityName)
+    fetch(`http://localhost:8080/data/${cityName}`)
         .then(response => response.json())
         .then(weatherData => {
             // Calculate average wind speed
@@ -92,14 +92,14 @@ function showAverageWindSpeedForLast5Days(cityName) {
 
             // Append to html
             let averageWindSpeedDiv = document.getElementById('base')
-            averageWindSpeedDiv.innerHTML += '<h1>Average wind speed within the last 5 days in ' + cityName + ': ' + averageWindSpeed.toFixed(1) + ' m/s</h1>'
+            averageWindSpeedDiv.innerHTML += `<h1>Average wind speed within the last 5 days in ${cityName}: ${averageWindSpeed.toFixed(1)} m/s</h1>`
         })
         .catch(console.error)
 }
 
 // 6. Average cloud coverage for the last 5 days
 function showAverageCloudCoverageLast5Days(cityName) {
-    fetch('http://localhost:8080/data/' + cityName)
+    fetch(`http://localhost:8080/data/${cityName}`)
         .then(response => response.json())
         .then(weatherData => {
             // Calculate average cloud coverage
@@ -109,14 +109,14 @@ function showAverageCloudCoverageLast5Days(cityName) {
 
             // Append to html
             let averageCloudCoverageDiv = document.getElementById('base')
-            averageCloudCoverageDiv.innerHTML += '<h1>Average cloud coverage within the last 5 days in ' + cityName + ': ' + averageCloudCoverage.toFixed(1) + ' %</h1>'
+            averageCloudCoverageDiv.innerHTML += `<h1>Average cloud coverage within the last 5 days in ${cityName}: ${averageCloudCoverage.toFixed(1)} %</h1>`
         })
         .catch(console.error)
 }
 
 // 7. Dominant wind direction for the last 5 days
 function showDominantWindDirectionTheLast5Days(cityName) {
-    fetch('http://localhost:8080/data/' + cityName)
+    fetch(`http://localhost:8080/data/${cityName}`)
         .then(response => response.json())
         .then(weatherData => {
             // Determine most common wind direction within last 5 days
@@ -126,23 +126,23 @@ function showDominantWindDirectionTheLast5Days(cityName) {
             
             // Append to html
             let mostDominantWindDirectionDiv = document.getElementById('base')
-            mostDominantWindDirectionDiv.innerHTML += '<h1>Most dominant wind direction within the last 5 days in ' + cityName + ': ' + mostDominantWindDirection + '</h1>' 
+            mostDominantWindDirectionDiv.innerHTML += `<h1>Most dominant wind direction within the last 5 days in ${cityName}: ${mostDominantWindDirection}</h1>` 
         })
         .catch(console.error)
 }
 
 // 8. Predictions for next 24 hours
 function showPredictionsForNext24Hours(cityName) {
-    fetch('http://localhost:8080/forecast/' + cityName)
+    fetch(`http://localhost:8080/data/${cityName}`)
         .then(response => response.json())
         .then(weatherPredictions => {
             let table;
 
-            if (cityName == 'Aarhus') {
+            if (cityName === 'Aarhus') {
                 table = document.getElementById('aarhus_hourly_predictions_table')
-            } else if (cityName == 'Copenhagen') {
+            } else if (cityName === 'Copenhagen') {
                 table = document.getElementById('copenhagen_hourly_predictions_table')
-            } else if (cityName == 'Horsens') {
+            } else if (cityName === 'Horsens') {
                 table = document.getElementById('horsens_hourly_predictions_table')    
             }
 
@@ -256,7 +256,7 @@ function isFromLast5Days(weatherData) {
 }
 
 function is(weatherData, type) {
-    return weatherData['type'] == type
+    return weatherData['type'] === type
 } 
 
 function showWeatherData() {
