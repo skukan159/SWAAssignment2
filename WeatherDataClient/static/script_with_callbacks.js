@@ -3,6 +3,11 @@ function showLatestMeasurementOfEachKindForLast5Days(cityName) {
     const request = new XMLHttpRequest()
     request.open('GET', `http://localhost:8080/data/${cityName}`)
     request.onload = () => {
+        if (request.status !== 200) {
+            console.log(`Request completed with status code ${request.status} - ${request.statusText}`)
+            return;
+        }
+        
         const weatherData = JSON.parse(request.responseText)
 
         // Find latest precipitation, temperature, wind speed & cloud coverage data
@@ -29,6 +34,11 @@ function showMinimumTemperatureForLast5Days(cityName) {
     const request = new XMLHttpRequest()
     request.open('GET', `http://localhost:8080/data/${cityName}`)
     request.onload = () => {
+        if (request.status !== 200) {
+            console.log(`Request completed with status code ${request.status} - ${request.statusText}`)
+            return;
+        }
+        
         const weatherData = JSON.parse(request.responseText)
 
         // Find min temperature weather data within last 5 days 
@@ -53,6 +63,11 @@ function showMaximumTemperatureForLast5Days(cityName) {
     const request = new XMLHttpRequest()
     request.open('GET', `http://localhost:8080/data/${cityName}`)
     request.onload = () => {
+        if (request.status !== 200) {
+            console.log(`Request completed with status code ${request.status} - ${request.statusText}`)
+            return;
+        }
+        
         const weatherData = JSON.parse(request.responseText)
 
         // Find max temperature within last 5 days
@@ -77,6 +92,11 @@ function showTotalPrecipitationForLast5Days(cityName) {
     const request = new XMLHttpRequest()
     request.open('GET', `http://localhost:8080/data/${cityName}`)
     request.onload = () => {
+        if (request.status !== 200) {
+            console.log(`Request completed with status code ${request.status} - ${request.statusText}`)
+            return;
+        }
+        
         const weatherData = JSON.parse(request.responseText)
 
         // Calculate total precipitaiton
@@ -97,6 +117,11 @@ function showAverageWindSpeedForLast5Days(cityName) {
     const request = new XMLHttpRequest()
     request.open('GET', `http://localhost:8080/data/${cityName}`)
     request.onload = () => {
+        if (request.status !== 200) {
+            console.log(`Request completed with status code ${request.status} - ${request.statusText}`)
+            return;
+        }
+        
         const weatherData = JSON.parse(request.responseText)
 
         // Calculate average wind speed
@@ -117,6 +142,11 @@ function showAverageCloudCoverageForLast5Days(cityName) {
     const request = new XMLHttpRequest()
     request.open('GET', `http://localhost:8080/data/${cityName}`)
     request.onload = () => {
+        if (request.status !== 200) {
+            console.log(`Request completed with status code ${request.status} - ${request.statusText}`)
+            return;
+        }
+        
         const weatherData = JSON.parse(request.responseText)
         
         // Calculate average cloud coverage
@@ -137,6 +167,11 @@ function showDominantWindDirectionForLast5Days(cityName) {
     const request = new XMLHttpRequest()
     request.open('GET', `http://localhost:8080/data/${cityName}`)
     request.onload = () => {
+        if (request.status !== 200) {
+            console.log(`Request completed with status code ${request.status} - ${request.statusText}`)
+            return;
+        }
+        
         const weatherData = JSON.parse(request.responseText)
 
         // Determine most common wind direction within last 5 days
@@ -155,8 +190,13 @@ function showDominantWindDirectionForLast5Days(cityName) {
 // 8. Predictions for next 24 hours
 function showPredictionsForNext24Hours(cityName) {
     const request = new XMLHttpRequest()
-    request.open('GET', `http://localhost:8080/data/${cityName}`)
+    request.open('GET', `http://localhost:8080/forecast/${cityName}`)
     request.onload = () => {
+        if (request.status !== 200) {
+            console.log(`Request completed with status code ${request.status} - ${request.statusText}`)
+            return;
+        }
+        
         const weatherData = JSON.parse(request.responseText)
         
         let table;

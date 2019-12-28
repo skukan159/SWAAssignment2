@@ -133,7 +133,7 @@ function showDominantWindDirectionTheLast5Days(cityName) {
 
 // 8. Predictions for next 24 hours
 function showPredictionsForNext24Hours(cityName) {
-    fetch(`http://localhost:8080/data/${cityName}`)
+    fetch(`http://localhost:8080/forecast/${cityName}`)
         .then(response => response.json())
         .then(weatherPredictions => {
             let table;
@@ -180,14 +180,13 @@ function appendPredictionToTable(table, weatherPrediction) {
 }
 
 function getHighestOccuringElement(weatherDataArray) {
-    if (weatherDataArray.length == 0) {
+    if (weatherDataArray.length === 0) {
         return null;
     }
 
     let occuranceMap = { };
     let mostCommonElement = weatherDataArray[0], maxCount = 1;
-    for (let i = 0; i < weatherDataArray.length; i++)
-    {
+    for (let i = 0; i < weatherDataArray.length; i++) {
         let currentWeatherData = weatherDataArray[i];
     
         if (occuranceMap[currentWeatherData] == null) {
