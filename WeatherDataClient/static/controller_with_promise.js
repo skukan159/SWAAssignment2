@@ -1,3 +1,6 @@
+import { appendWeatherDataRow, appendPredictionToTable } from "./view.js"
+import { getHighestOccuringElement, isFromLast5Days, is, filterLatestWeatherData } from "./weatherDataFilteringHelpers.js"
+
 // 1. All data for the latest measurement of each kind
 function showLatestMeasurementOfEachKindForLast5Days(cityName) {
     fetch(`http://localhost:8080/data/${cityName}`)
@@ -151,113 +154,6 @@ function showPredictionsForNext24Hours(cityName) {
         .catch(console.error)
 }
 
-function appendPredictionToTable(table, weatherPrediction) {
-    let row = table.insertRow();
-
-    let fromCell = row.insertCell(0)
-    let toCell = row.insertCell(1);
-    let detailsCell = row.insertCell(2);
-    let typeCell = row.insertCell(3);
-    let unitCell = row.insertCell(4);
-    let timeCell = row.insertCell(5);
-    let placeCell = row.insertCell(6);
-
-    fromCell.innerHTML = weatherPrediction.from
-    toCell.innerHTML = weatherPrediction.to;
-
-    if (weatherPrediction['precipitation_types'] != null) {
-        detailsCell.innerHTML = weatherPrediction.precipitation_types.join('\n');
-    } else if (weatherPrediction['directions'] != null) {
-        detailsCell.innerHTML = weatherPrediction.directions.join('\n');
-    } else {
-        detailsCell.innerHTML = ''
-    }
-    
-    typeCell.innerHTML = weatherPrediction.type; 
-    unitCell.innerHTML = weatherPrediction.unit;
-    timeCell.innerHTML = weatherPrediction.time;
-    placeCell.innerHTML = weatherPrediction.place;
-}
-
-function getHighestOccuringElement(weatherDataArray) {
-    if (weatherDataArray.length === 0) {
-        return null;
-    }
-
-    let occuranceMap = { };
-    let mostCommonElement = weatherDataArray[0], maxCount = 1;
-    for (let i = 0; i < weatherDataArray.length; i++) {
-        let currentWeatherData = weatherDataArray[i];
-    
-        if (occuranceMap[currentWeatherData] == null) {
-            occuranceMap[currentWeatherData] = 1;
-        } else {
-            occuranceMap[currentWeatherData]++; 
-        }  
-        if (occuranceMap[currentWeatherData] > maxCount) {
-            mostCommonElement = currentWeatherData;
-            maxCount = occuranceMap[currentWeatherData];
-        }
-    }
-    
-    return mostCommonElement;
-}
-
-function filterLatestWeatherData(weatherDataArray) {
-    // First as baseline
-    let latestPrecipitation = weatherDataArray.find(weatherData => is(weatherData, 'precipitation'))
-    let latestTemperature = weatherDataArray.find(weatherData => is(weatherData, 'temperature'))
-    let latestWindSpeed = weatherDataArray.find(weatherData => is(weatherData, 'wind speed'))
-    let latestCloudCoverage = weatherDataArray.find(weatherData => is(weatherData, 'cloud coverage'))
-
-    // Seperate the data
-    weatherDataArray.forEach(weatherData => {
-        if (is(weatherData, 'precipitation') && latestPrecipitation.time < weatherData.time) {
-            latestPrecipitation = weatherData
-        } else if (is(weatherData, 'temperature') && latestTemperature.time < weatherData.time) {
-            latestTemperature = weatherData
-        } else if (is(weatherData, 'wind speed') && latestWindSpeed.time < weatherData.time) {
-            latestWindSpeed = weatherData     
-        } else if (is(weatherData, 'cloud coverage') && latestCloudCoverage.time < weatherData.time) {
-            latestCloudCoverage = weatherData     
-        }
-    })
-
-    return { latestPrecipitation, latestTemperature, latestWindSpeed, latestCloudCoverage }
-}
-
-function appendWeatherDataRow(table, weatherData) {
-    let row = table.insertRow();
-
-    let typeCell = row.insertCell(0)
-    let valueCell = row.insertCell(1);
-    let unitCell = row.insertCell(2);
-    let timeCell = row.insertCell(3);
-    let placeCell = row.insertCell(4);
-
-    typeCell.innerHTML = weatherData.type
-    valueCell.innerHTML = weatherData.value;
-    unitCell.innerHTML = weatherData.unit; 
-    timeCell.innerHTML = weatherData.time;
-    placeCell.innerHTML = weatherData.place;
-}
-
-function getDaysBetween(d1, d2) {
-    let diff = Math.abs(d1.getTime() - d2.getTime());
-    return diff / (1000 * 60 * 60 * 24);
-};
-
-function isFromLast5Days(weatherData) {
-    let now = new Date()
-    let weatherDataDate = new Date(weatherData.time)
-    let daysBetween = getDaysBetween(now, weatherDataDate)
-    return daysBetween <= 5
-}
-
-function is(weatherData, type) {
-    return weatherData['type'] === type
-} 
-
 function showWeatherData() {
     showLatestMeasurementOfEachKindForLast5Days('Aarhus')
     showLatestMeasurementOfEachKindForLast5Days('Copenhagen')
@@ -290,4 +186,8 @@ function showWeatherData() {
     showPredictionsForNext24Hours('Aarhus')
     showPredictionsForNext24Hours('Copenhagen')
     showPredictionsForNext24Hours('Horsens')
+}
+
+window.onload = function() {
+    showWeatherData()
 }
