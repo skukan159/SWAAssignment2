@@ -1,11 +1,64 @@
-function filterLatestWeatherData(weatherDataArray) {
+function getMinimumTemperatureForLast5Days(weatherData) {
+    let temperatureFromLast5Days = weatherData.filter(wd => is(wd, "temperature") && isFromLast5Days(wd))
+    let weatherDataWithMaxTemperature = temperatureFromLast5Days.reduce((pre, cur) => {
+        let t1 = pre["value"]
+        let t2 = cur["value"]
+
+        return t1 < t2 ? pre : cur
+    })
+
+    return weatherDataWithMaxTemperature
+}
+
+function getMaximumTemperatureForLast5Days(weatherData) {
+    let temperatureFromLast5Days = weatherData.filter(wd => is(wd, "temperature") && isFromLast5Days(wd))
+    let weatherDataWithMaxTemperature = temperatureFromLast5Days.reduce((pre, cur) => {
+        let t1 = pre["value"]
+        let t2 = cur["value"]
+
+        return t1 > t2 ? pre : cur
+    })
+
+    return weatherDataWithMaxTemperature
+}
+
+function getTotalPrecipitationForLast5Days(weatherData) {
+    let totalPrecipitation = weatherData.filter(wd => is(wd, "precipitation") && isFromLast5Days(wd))
+                                        .map(wd => wd["value"])
+                                        .reduce((previousPrecipitation, currentPrecipitation) => previousPrecipitation + currentPrecipitation, 0)
+    return totalPrecipitation
+}
+
+function getAverageWindSpeedForLast5Days(weatherData) {
+    let averageWindSpeed = weatherData.filter(wd => is(wd, "wind speed") && isFromLast5Days(wd))
+                                        .map(wd => wd["value"])
+                                        .reduce((previousWindSpeed, currentWindSpeed) => previousWindSpeed + currentWindSpeed, 0) / weatherData.length
+
+    return averageWindSpeed
+}
+
+function getAverageCloudCoverageForLast5Days(weatherData) {
+    let averageCloudCoverage = weatherData.filter(wd => is(wd, "cloud coverage") && isFromLast5Days(wd))
+                                            .map(wd => wd["value"])
+                                            .reduce((previousCloudCoverage, currentCloudCoverage) => previousCloudCoverage + currentCloudCoverage, 0) / weatherData.length
+
+    return averageCloudCoverage
+}
+
+function getDominantWindDirectionForLast5Days(weatherData) {
+    let windDirectionsFromLast5Days = weatherData.filter(wd => is(wd, "wind speed") && isFromLast5Days(wd))
+                                                    .map(wd => wd["direction"])
+    let mostDominantWindDirection = getHighestOccuringElement(windDirectionsFromLast5Days)
+    return mostDominantWindDirection
+}
+
+function getLatestWeatherDataOfEachType(weatherDataArray) {
     // First as baseline
     let latestPrecipitation = weatherDataArray.find(weatherData => is(weatherData, "precipitation"))
     let latestTemperature = weatherDataArray.find(weatherData => is(weatherData, "temperature"))
     let latestWindSpeed = weatherDataArray.find(weatherData => is(weatherData, "wind speed"))
     let latestCloudCoverage = weatherDataArray.find(weatherData => is(weatherData, "cloud coverage"))
 
-    // Seperate the data
     weatherDataArray.forEach(weatherData => {
         if (is(weatherData, "precipitation") && latestPrecipitation.time < weatherData.time) {
             latestPrecipitation = weatherData
@@ -63,4 +116,7 @@ function is(weatherData, type) {
     return weatherData["type"] === type
 }
 
-export { getHighestOccuringElement, getDaysBetween, isFromLast5Days, is, filterLatestWeatherData }
+export { getHighestOccuringElement, getLatestWeatherDataOfEachType,
+    getMinimumTemperatureForLast5Days, getMaximumTemperatureForLast5Days, 
+    getTotalPrecipitationForLast5Days, getAverageWindSpeedForLast5Days, 
+    getAverageCloudCoverageForLast5Days, getDominantWindDirectionForLast5Days }

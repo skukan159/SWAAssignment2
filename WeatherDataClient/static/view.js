@@ -1,3 +1,18 @@
+function showWeatherDataInTable(tableId, objects) {
+    let table = document.getElementById(tableId);
+    objects.forEach(data => appendWeatherDataRow(table, data))
+}
+
+function showPredictionDataInTable(tableId, objects) {
+    let table = document.getElementById(tableId);
+    objects.forEach(data => appendPredictionToTable(table, data))
+}
+
+function showTextInHtmlElement(elementId, html) {
+    let element = document.getElementById(elementId)
+    element.innerHTML += html
+}
+
 function appendWeatherDataRow(table, weatherData) {
     let row = table.insertRow();
 
@@ -42,4 +57,4 @@ function appendPredictionToTable(table, weatherPrediction) {
     placeCell.innerHTML = weatherPrediction.place;
 }
 
-export { appendWeatherDataRow, appendPredictionToTable }
+export { showWeatherDataInTable, showPredictionDataInTable, showTextInHtmlElement }
