@@ -1,24 +1,28 @@
-const httpRequestWithCallback = (url, httpMethod, handleResponse) => {
+const httpGetWithCallback = (url, handleResponse) => {
     const request = new XMLHttpRequest()
-    request.open(httpMethod, url)
+    request.open("GET", url)
     request.onload = () => {
-        if (request.status !== 200) {
-            console.log(`Request completed with status code ${request.status} - ${request.statusText}`)
-            return;
+        if (request.status === 200) {
+          const data = JSON.parse(request.responseText)
+          handleResponse(data)  
+        } else {
+          console.log(`Request returned status code ${request.status} ${request.statusText}`)
         }
-
-        const data = JSON.parse(request.responseText)
-        handleResponse(data)
     }
 
     request.onerror = e => console.error(e) 
     request.send()
 }
 
-const httpRequestWithFetch = (url, handleResponse) => {
+const httpGetWithFetch = (url, handleResponse) => {
   fetch(url)
-    .then(response => response.json())
-    .then(data => handleResponse(data))
+    .then(response => {
+      if (response.ok) {
+        return response.json()
+      }
+      throw new Error("Network responsa was not ok")
+    })
+    .then(handleResponse)
     .catch(console.error)
 }
 
@@ -32,4 +36,4 @@ const groupBy = (array, key) => {
     }, {}); // empty object is the initial value for result object
   }
 
-export { httpRequestWithCallback, httpRequestWithFetch, groupBy }
+export { httpGetWithCallback, httpGetWithFetch, groupBy }
