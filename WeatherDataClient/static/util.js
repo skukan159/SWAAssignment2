@@ -23,7 +23,7 @@ const httpGetWithFetch = (url, handleResponse) => {
       throw new Error("Network responsa was not ok")
     })
     .then(handleResponse)
-    .catch(console.error)
+    .catch(error => console.error(error))
 }
 
 const groupBy = (array, key) => {
