@@ -1,4 +1,4 @@
-function httpRequestWithCallback(url, httpMethod, handleResponse) {
+const httpRequestWithCallback = (url, httpMethod, handleResponse) => {
     const request = new XMLHttpRequest()
     request.open(httpMethod, url)
     request.onload = () => {
@@ -15,14 +15,14 @@ function httpRequestWithCallback(url, httpMethod, handleResponse) {
     request.send()
 }
 
-function httpRequestWithFetch(url, handleResponse) {
+const httpRequestWithFetch = (url, handleResponse) => {
   fetch(url)
     .then(response => response.json())
     .then(data => handleResponse(data))
     .catch(console.error)
 }
 
-function groupBy(array, key) {
+const groupBy = (array, key) => {
     // Return the end result
     return array.reduce((result, currentValue) => {
       // If an array already present for key, push it to the array. Else create an array and push the object

@@ -1,19 +1,19 @@
-function showWeatherDataInTable(tableId, objects) {
+const showWeatherDataInTable = (tableId, objects) => {
     let table = document.getElementById(tableId);
     objects.forEach(data => appendWeatherDataRow(table, data))
 }
 
-function showPredictionDataInTable(tableId, objects) {
+const showPredictionDataInTable = (tableId, objects) => {
     let table = document.getElementById(tableId);
     objects.forEach(data => appendPredictionToTable(table, data))
 }
 
-function showTextInHtmlElement(elementId, html) {
+const showTextInHtmlElement = (elementId, html) => {
     let element = document.getElementById(elementId)
     element.innerHTML += html
 }
 
-function appendWeatherDataRow(table, weatherData) {
+const appendWeatherDataRow = (table, weatherData) => {
     let row = table.insertRow();
 
     let typeCell = row.insertCell(0)
@@ -29,7 +29,7 @@ function appendWeatherDataRow(table, weatherData) {
     placeCell.innerHTML = weatherData.place;
 }
 
-function appendPredictionToTable(table, weatherPrediction) {
+const appendPredictionToTable = (table, weatherPrediction) => {
     let row = table.insertRow();
 
     let fromCell = row.insertCell(0)

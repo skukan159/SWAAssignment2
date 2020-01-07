@@ -1,4 +1,4 @@
-function getMinimumTemperatureForLast5Days(weatherData) {
+const getMinimumTemperatureForLast5Days = weatherData => {
     let temperatureFromLast5Days = weatherData.filter(wd => is(wd, "temperature") && isFromLast5Days(wd))
     let weatherDataWithMaxTemperature = temperatureFromLast5Days.reduce((pre, cur) => {
         let t1 = pre["value"]
@@ -10,7 +10,7 @@ function getMinimumTemperatureForLast5Days(weatherData) {
     return weatherDataWithMaxTemperature
 }
 
-function getMaximumTemperatureForLast5Days(weatherData) {
+const getMaximumTemperatureForLast5Days = weatherData => {
     let temperatureFromLast5Days = weatherData.filter(wd => is(wd, "temperature") && isFromLast5Days(wd))
     let weatherDataWithMaxTemperature = temperatureFromLast5Days.reduce((pre, cur) => {
         let t1 = pre["value"]
@@ -22,37 +22,37 @@ function getMaximumTemperatureForLast5Days(weatherData) {
     return weatherDataWithMaxTemperature
 }
 
-function getTotalPrecipitationForLast5Days(weatherData) {
+const getTotalPrecipitationForLast5Days = weatherData => {
     let totalPrecipitation = weatherData.filter(wd => is(wd, "precipitation") && isFromLast5Days(wd))
                                         .map(wd => wd["value"])
                                         .reduce((previousPrecipitation, currentPrecipitation) => previousPrecipitation + currentPrecipitation, 0)
     return totalPrecipitation
 }
 
-function getAverageWindSpeedForLast5Days(weatherData) {
+const getAverageWindSpeedForLast5Days = weatherData => {
     let averageWindSpeed = weatherData.filter(wd => is(wd, "wind speed") && isFromLast5Days(wd))
-                                        .map(wd => wd["value"])
-                                        .reduce((previousWindSpeed, currentWindSpeed) => previousWindSpeed + currentWindSpeed, 0) / weatherData.length
+                                      .map(wd => wd["value"])
+                                      .reduce((previousWindSpeed, currentWindSpeed) => previousWindSpeed + currentWindSpeed, 0) / weatherData.length
 
     return averageWindSpeed
 }
 
-function getAverageCloudCoverageForLast5Days(weatherData) {
+const getAverageCloudCoverageForLast5Days = weatherData => {
     let averageCloudCoverage = weatherData.filter(wd => is(wd, "cloud coverage") && isFromLast5Days(wd))
-                                            .map(wd => wd["value"])
-                                            .reduce((previousCloudCoverage, currentCloudCoverage) => previousCloudCoverage + currentCloudCoverage, 0) / weatherData.length
+                                          .map(wd => wd["value"])
+                                          .reduce((previousCloudCoverage, currentCloudCoverage) => previousCloudCoverage + currentCloudCoverage, 0) / weatherData.length
 
     return averageCloudCoverage
 }
 
-function getDominantWindDirectionForLast5Days(weatherData) {
+const getDominantWindDirectionForLast5Days = weatherData => {
     let windDirectionsFromLast5Days = weatherData.filter(wd => is(wd, "wind speed") && isFromLast5Days(wd))
-                                                    .map(wd => wd["direction"])
+                                                 .map(wd => wd["direction"])
     let mostDominantWindDirection = getHighestOccuringElement(windDirectionsFromLast5Days)
     return mostDominantWindDirection
 }
 
-function getLatestWeatherDataOfEachType(weatherDataArray) {
+const getLatestWeatherDataOfEachType = weatherDataArray => {
     // First as baseline
     let latestPrecipitation = weatherDataArray.find(weatherData => is(weatherData, "precipitation"))
     let latestTemperature = weatherDataArray.find(weatherData => is(weatherData, "temperature"))
@@ -74,7 +74,7 @@ function getLatestWeatherDataOfEachType(weatherDataArray) {
     return { latestPrecipitation, latestTemperature, latestWindSpeed, latestCloudCoverage }
 } 
 
-function getHighestOccuringElement(weatherDataArray) {
+const getHighestOccuringElement = weatherDataArray => {
     if (weatherDataArray.length == 0) {
         return null;
     }
@@ -100,19 +100,19 @@ function getHighestOccuringElement(weatherDataArray) {
     return mostCommonElement;
 }
 
-function getDaysBetween(d1, d2) {
+const getDaysBetween = (d1, d2) => {
     let diff = Math.abs(d1.getTime() - d2.getTime());
     return diff / (1000 * 60 * 60 * 24);
-};
+}
 
-function isFromLast5Days(weatherData) {
+const isFromLast5Days = weatherData => {
     let now = new Date()
     let weatherDataDate = new Date(weatherData.time)
     let daysBetween = getDaysBetween(now, weatherDataDate)
     return daysBetween <= 5
 }
 
-function is(weatherData, type) {
+const is = (weatherData, type) => {
     return weatherData["type"] === type
 }
 

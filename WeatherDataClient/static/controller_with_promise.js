@@ -4,7 +4,7 @@ import { executeShowLatestMeasurementOfEachKindForLast5Days, executeShowMinimumT
     executeShowAverageWindSpeedForLast5Days, executeShowAverageCloudCoverage, 
     executeShowGetDominantWindDirectionForLast5Days, executeShowPredictionsForNext24Hours } from "./generic_controller.js"
 
-function showWeatherData() {
+const showWeatherData = () => {
     httpRequestWithFetch("http://localhost:8080/data/", weatherData => {
         let weatherDataGroupsByCityName = groupBy(weatherData, "place")
         Object.keys(weatherDataGroupsByCityName)
@@ -27,6 +27,4 @@ function showWeatherData() {
     })
 }
 
-window.onload = function() {
-    showWeatherData()
-}
+window.onload = () => showWeatherData()
