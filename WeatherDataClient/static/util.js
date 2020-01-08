@@ -6,7 +6,7 @@ const httpGetWithCallback = (url, handleResponse) => {
           const data = JSON.parse(request.responseText)
           handleResponse(data)  
         } else {
-          console.log(`Request returned status code ${request.status} ${request.statusText}`)
+          throw new Error(request.statusText)
         }
     }
 
@@ -16,15 +16,48 @@ const httpGetWithCallback = (url, handleResponse) => {
 
 const httpGetWithFetch = (url, handleResponse) => {
   fetch(url)
-    .then(response => {
-      if (response.ok) {
-        return response.json()
-      }
-      throw new Error("Network responsa was not ok")
-    })
-    .then(handleResponse)
-    .catch(error => console.error(error))
+  .then(response => {
+    if (response.ok) {
+      return response.json()
+    }
+    throw new Error(response.statusText)
+  })
+  .then(handleResponse)
+  .catch(error => console.error(error))
 }
+
+/*
+async function httpGetWithFetch(url, handleResponse) {
+  try {
+    let response = await fetch(url)
+    if (!response.ok) {
+      throw new Error(response.statusText)
+    }
+    let json = await response.json()
+    handleResponse(json)
+  } catch (error) {
+    console.error(error)
+  }
+}
+*/
+
+/*
+const httpGetWithCallbackSync = (url, handleResponse) => {
+  const request = new XMLHttpRequest()
+  request.open("GET", url, false)
+  request.onload = () => {
+      if (request.status === 200) {
+        const data = JSON.parse(request.responseText)
+        handleResponse(data)  
+      } else {
+          throw new Error(request.statusText)
+      }
+  }
+
+  request.onerror = e => console.error(e) 
+  request.send()
+}
+*/
 
 const groupBy = (array, key) => {
     // Return the end result
