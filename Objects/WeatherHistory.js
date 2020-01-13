@@ -24,7 +24,7 @@ class WeatherHistory {
     }
 
     convertToUSUnits() {
-        let newWeatherDataVals = this.weatherDataVals.map((weatherData) => {
+        let newWeatherDataVals = this.weatherDataVals.map(weatherData => {
             let newWeatherData;
             switch (weatherData.type().toLowerCase()) {
                 case "temperature":
@@ -44,7 +44,7 @@ class WeatherHistory {
     }
 
     convertToInternationalUnits() {
-        let newWeatherDataVals = this.weatherDataVals.map((weatherData) => {
+        let newWeatherDataVals = this.weatherDataVals.map(weatherData => {
             let newWeatherData;
             switch (weatherData.type().toLowerCase()) {
                 case "temperature":
@@ -73,13 +73,28 @@ class WeatherHistory {
             return undefined    
         }
 
-        let weatherDataValues = this.weatherDataVals.map(wd => wd.value())
-        return Math.min(...weatherDataValues)
+        return this.weatherDataVals.reduce((prev, current) => Math.min(prev, current))
     }
 
     data() { 
         return this.weatherDataVals; 
     }
 }
+
+// const compose = (...fns) => arg => fns.reduce((acc, fn) => fn(acc), arg)
+
+/*
+const add = (x, y) => x + y
+const subtract = (x, y) => x - y
+const multiply = (x, y) => x * y
+const divide = (x, y) => x / y
+*/
+
+/*
+const add = x => y => x + y
+const subtract = x => y => y - x
+const multiply = x => y => x * y
+const divide = x => y => y / x
+*/
 
 module.exports = { WeatherHistory }

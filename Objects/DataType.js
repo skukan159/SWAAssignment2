@@ -4,9 +4,8 @@ class DataType {
         this.unitVal = unitVal;
     }
 
-    type() {return this.typeVal}
-    unit() {return this.unitVal}
-
+    type() { return this.typeVal }
+    unit() { return this.unitVal }
 }
 
 module.exports = { DataType }

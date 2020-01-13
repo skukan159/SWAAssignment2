@@ -1,18 +1,18 @@
-import { httpGetWithFetch, groupBy } from "./util.js"
+import { httpGetWithCallback, groupBy } from "./util.js"
 import { executeShowLatestMeasurementOfEachKindForLast5Days, executeShowMinimumTemperatureForLast5Days, 
     executeShowMaximumTemperatureForLast5Days, executeShowTotalPrecipitationForLast5Days, 
     executeShowAverageWindSpeedForLast5Days, executeShowAverageCloudCoverage, 
-    executeShowGetDominantWindDirectionForLast5Days, executeShowPredictionsForNext24Hours } from "./generic_controller.js"
+    executeShowGetDominantWindDirectionForLast5Days, executeShowPredictionsForNext24Hours } from "./generic_presenter.js"
 
 const serverWeatherDataUrl = "http://localhost:8080/data/"
 const serverPredictionsUrl = "http://localhost:8080/forecast/"
 
 const showWeatherData = () => {
-    httpGetWithFetch(serverWeatherDataUrl, weatherData => {
-        let weatherDataGroupsByCityName = groupBy(weatherData, "place")
+    httpGetWithCallback(serverWeatherDataUrl, weatherData => {
+        const weatherDataGroupsByCityName = groupBy(weatherData, "place")
         Object.keys(weatherDataGroupsByCityName)
             .forEach(groupKey => {
-                let weatherDataForACity = weatherDataGroupsByCityName[groupKey]
+                const weatherDataForACity = weatherDataGroupsByCityName[groupKey]
                 executeShowLatestMeasurementOfEachKindForLast5Days(weatherDataForACity)
                 executeShowMinimumTemperatureForLast5Days(weatherDataForACity)
                 executeShowMaximumTemperatureForLast5Days(weatherDataForACity)
@@ -23,10 +23,10 @@ const showWeatherData = () => {
         })
     })
 
-    httpGetWithFetch(serverPredictionsUrl, weatherPredictionData => {
-        let weatherPredictionDataGroupsByCityName = groupBy(weatherPredictionData, "place")
-        Object.keys(weatherPredictionDataGroupsByCityName)
-            .forEach(groupKey => executeShowPredictionsForNext24Hours(weatherPredictionDataGroupsByCityName[groupKey], groupKey))
+    httpGetWithCallback(serverPredictionsUrl, forecastData => {
+        const forecastDataGroupsByCityName = groupBy(forecastData, "place")
+        Object.keys(forecastDataGroupsByCityName)
+            .forEach(groupKey => executeShowPredictionsForNext24Hours(forecastDataGroupsByCityName[groupKey], groupKey))
     })
 }
 

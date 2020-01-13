@@ -1,26 +1,26 @@
 const showWeatherDataInTable = (tableId, objects) => {
-    let table = document.getElementById(tableId)
+    const table = document.getElementById(tableId)
     objects.forEach(data => appendWeatherDataRow(table, data))
 }
 
 const showPredictionDataInTable = (tableId, objects) => {
-    let table = document.getElementById(tableId)
+    const table = document.getElementById(tableId)
     objects.forEach(data => appendPredictionToTable(table, data))
 }
 
 const showTextInHtmlElement = (elementId, html) => {
-    let element = document.getElementById(elementId)
+    const element = document.getElementById(elementId)
     element.innerHTML += html
 }
 
 const appendWeatherDataRow = (table, weatherData) => {
-    let row = table.insertRow()
+    const row = table.insertRow()
 
-    let typeCell = row.insertCell(0)
-    let valueCell = row.insertCell(1)
-    let unitCell = row.insertCell(2)
-    let timeCell = row.insertCell(3)
-    let placeCell = row.insertCell(4)
+    const typeCell = row.insertCell(0)
+    const valueCell = row.insertCell(1)
+    const unitCell = row.insertCell(2)
+    const timeCell = row.insertCell(3)
+    const placeCell = row.insertCell(4)
 
     typeCell.innerHTML = weatherData.type
     valueCell.innerHTML = weatherData.value
@@ -30,15 +30,15 @@ const appendWeatherDataRow = (table, weatherData) => {
 }
 
 const appendPredictionToTable = (table, weatherPrediction) => {
-    let row = table.insertRow()
+    const row = table.insertRow()
 
-    let fromCell = row.insertCell(0)
-    let toCell = row.insertCell(1)
-    let detailsCell = row.insertCell(2)
-    let typeCell = row.insertCell(3)
-    let unitCell = row.insertCell(4)
-    let timeCell = row.insertCell(5)
-    let placeCell = row.insertCell(6)
+    const fromCell = row.insertCell(0)
+    const toCell = row.insertCell(1)
+    const detailsCell = row.insertCell(2)
+    const typeCell = row.insertCell(3)
+    const unitCell = row.insertCell(4)
+    const timeCell = row.insertCell(5)
+    const placeCell = row.insertCell(6)
 
     fromCell.innerHTML = weatherPrediction.from
     toCell.innerHTML = weatherPrediction.to

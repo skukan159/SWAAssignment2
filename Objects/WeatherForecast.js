@@ -25,7 +25,7 @@ class WeatherForecast {
     }
 
     convertToUSUnits() {
-        let newweatherForecastVals = this.weatherForecastVals.map((weatherForecast) => {
+        let newweatherForecastVals = this.weatherForecastVals.map(weatherForecast => {
             let newWeatherForecast;
             switch (weatherForecast.type().toLowerCase()) {
                 case "temperature":
@@ -45,7 +45,7 @@ class WeatherForecast {
     }
 
     convertToInternationalUnits() {
-        let newweatherForecastVals = this.weatherForecastVals.map((weatherForecast) => {
+        let newweatherForecastVals = this.weatherForecastVals.map(weatherForecast => {
             let newWeatherForecast;
             switch (weatherForecast.type().toLowerCase()) {
                 case "temperature":

@@ -2,15 +2,17 @@ const httpGetWithCallback = (url, handleResponse) => {
     const request = new XMLHttpRequest()
     request.open("GET", url)
     request.onload = () => {
-        if (request.status === 200) {
-          const data = JSON.parse(request.responseText)
-          handleResponse(data)  
-        } else {
-          throw new Error(request.statusText)
+        if (request.readyState === XMLHttpRequest.DONE) {
+          if (request.status === 200) {
+            const data = JSON.parse(request.responseText)
+            handleResponse(data)  
+          } else {
+            throw new Error(`[${new Date().toISOString()}]: HTTP response: ${request.status} ${request.statusText}`)
+          }
         }
     }
-
-    request.onerror = e => console.error(e) 
+    request.ontimeout = () => console.log(`[${new Date().toISOString()}]: HTTP request timed out`)
+    request.onerror = e => console.error(`[${new Date().toDateString()}]: ${e}`)
     request.send()
 }
 
@@ -29,14 +31,15 @@ const httpGetWithFetch = (url, handleResponse) => {
 /*
 async function httpGetWithFetch(url, handleResponse) {
   try {
-    let response = await fetch(url)
+    const response = await fetch(url)
     if (!response.ok) {
       throw new Error(response.statusText)
     }
-    let json = await response.json()
+    const json = await response.json()
     handleResponse(json)
   } catch (error) {
     console.error(error)
+    console.log("error")
   }
 }
 */
@@ -46,14 +49,14 @@ const httpGetWithCallbackSync = (url, handleResponse) => {
   const request = new XMLHttpRequest()
   request.open("GET", url, false)
   request.onload = () => {
-      if (request.status === 200) {
+      if (request.readyState === 4 && request.status === 200) {
         const data = JSON.parse(request.responseText)
         handleResponse(data)  
       } else {
-          throw new Error(request.statusText)
+          throw new Error(`Ready state: ${request.readyState} HTTP response: ${request.status} ${request.statusText}`)
       }
   }
-
+  request.ontimeout = () => console.log("HTTP request timed out")
   request.onerror = e => console.error(e) 
   request.send()
 }
