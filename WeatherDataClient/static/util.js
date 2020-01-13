@@ -1,4 +1,5 @@
 const httpGetWithCallback = (url, handleResponse) => {
+    console.log(`[${new Date().toISOString()}]: XMLHttpRequest at endpoint ${url}`)
     const request = new XMLHttpRequest()
     request.open("GET", url)
     request.onload = () => {
@@ -17,6 +18,7 @@ const httpGetWithCallback = (url, handleResponse) => {
 }
 
 const httpGetWithFetch = (url, handleResponse) => {
+  console.log(`[${new Date().toISOString()}]: Promise at endpoint ${url}`)
   fetch(url)
   .then(response => {
     if (response.ok) {
@@ -30,6 +32,7 @@ const httpGetWithFetch = (url, handleResponse) => {
 
 /*
 async function httpGetWithFetch(url, handleResponse) {
+  console.log(`[${new Date().toISOString()}]: Promise at endpoint ${url}`)
   try {
     const response = await fetch(url)
     if (!response.ok) {
@@ -46,6 +49,7 @@ async function httpGetWithFetch(url, handleResponse) {
 
 /*
 const httpGetWithCallbackSync = (url, handleResponse) => {
+  console.log(`[${new Date().toISOString()}]: XMLHttpRequest at endpoint ${url}`)
   const request = new XMLHttpRequest()
   request.open("GET", url, false)
   request.onload = () => {
