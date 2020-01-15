@@ -1,5 +1,5 @@
 import { showWeatherDataInTable, showPredictionDataInTable, showTextInHtmlElement } from "./view.js"
-import { getMinimumTemperatureForLast5Days, getLatestWeatherDataOfEachType,
+import { getLatestWeatherDataOfEachType, getMinimumTemperatureForLast5Days,
     getMaximumTemperatureForLast5Days, getTotalPrecipitationForLast5Days,
     getAverageWindSpeedForLast5Days, getAverageCloudCoverageForLast5Days, 
     getDominantWindDirectionForLast5Days } from "./weatherDataFilteringHelpers.js"
@@ -8,16 +8,12 @@ const cityTableDataMap = {
     "Aarhus": "aarhus_hourly_predictions_table",
     "Copenhagen": "copenhagen_hourly_predictions_table",
     "Horsens": "horsens_hourly_predictions_table"
- }
+}
 
 const executeShowLatestMeasurementOfEachKindForLast5Days = weatherData => {
     const latestMeasurementsOfEachType = getLatestWeatherDataOfEachType(weatherData)
-    const latestPrecipitation = latestMeasurementsOfEachType.latestPrecipitation
-    const latestTemperature = latestMeasurementsOfEachType.latestTemperature
-    const latestWindSpeed = latestMeasurementsOfEachType.latestWindSpeed
-    const latestCloudCoverage = latestMeasurementsOfEachType.latestCloudCoverage
 
-    showWeatherDataInTable("latest_data_table", [ latestPrecipitation, latestTemperature, latestWindSpeed, latestCloudCoverage ])
+    showWeatherDataInTable("latest_data_table", Object.values(latestMeasurementsOfEachType))
 }
 
 const executeShowMinimumTemperatureForLast5Days = weatherData => {
@@ -56,9 +52,7 @@ const executeShowGetDominantWindDirectionForLast5Days = (weatherData, cityName) 
     showTextInHtmlElement("base", `<h1>Most dominant wind direction within the last 5 days in ${cityName}: ${mostDominantWindDirection}</h1>`)
 }
 
-const executeShowPredictionsForNext24Hours = (predictionData, cityName) => {
-    showPredictionDataInTable(cityTableDataMap[cityName], predictionData)
-}
+const executeShowPredictionsForNext24Hours = (predictionData, cityName) => showPredictionDataInTable(cityTableDataMap[cityName], predictionData)
 
 export { executeShowLatestMeasurementOfEachKindForLast5Days, executeShowMinimumTemperatureForLast5Days, 
     executeShowMaximumTemperatureForLast5Days, executeShowTotalPrecipitationForLast5Days, 
